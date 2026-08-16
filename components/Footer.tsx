@@ -89,7 +89,7 @@ export default function Footer() {
         <div className="border-t border-white/[0.06] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-4">
             <a
-              href="https://www.instagram.com/djrobertpierz/"
+              href="https://www.instagram.com/rpevents.robertpierz/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-gray-600 hover:text-[#C6A97D] hover:border-[#C6A97D]/30 hover:bg-[#C6A97D]/5 transition-all duration-300"
@@ -97,7 +97,7 @@ export default function Footer() {
               <FiInstagram size={17} />
             </a>
             <a
-              href="https://youtube.com/@rpeventsrobertpierz"
+              href="https://www.instagram.com/rpevents.robertpierz/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-xl border border-white/[0.06] bg-white/[0.02] flex items-center justify-center text-gray-600 hover:text-[#C6A97D] hover:border-[#C6A97D]/30 hover:bg-[#C6A97D]/5 transition-all duration-300"

@@ -36,7 +36,7 @@ const images: GalleryItem[] = [
   },
   {
     id: 4,
-    img: "https://images.unsplash.com/photo-1574879948962-44d0e4c03279?q=80&w=800&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop",
     title: "Event Premium",
     loc: "Zakopane",
   },
@@ -110,7 +110,7 @@ export default function Gallery() {
           </div>
 
           <a
-            href="https://www.instagram.com/djrobertpierz/"
+            href="https://www.instagram.com/rpevents.robertpierz/"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 text-gray-500 hover:text-[#C6A97D] font-medium transition-colors duration-300 border-b border-white/10 group-hover:border-[#C6A97D]/50 pb-1 w-fit"
@@ -159,7 +159,6 @@ export default function Gallery() {
                 className="w-full h-full object-cover transition-all duration-700 ease-out group-hover/card:scale-110 group-hover/card:brightness-75"
               />
 
-              {/* Ciemniejsze, bardziej "kinowe" nakładka na dole */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover/card:opacity-100 transition-opacity duration-500"></div>
 
               <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 transform translate-y-2 group-hover/card:translate-y-0 transition-transform duration-500">
@@ -170,7 +169,6 @@ export default function Gallery() {
                   {item.title}
                 </h3>
 
-                {/* Złota strzałka na hoverze */}
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#C6A97D]/10 backdrop-blur-md border border-[#C6A97D]/30 flex items-center justify-center text-[#C6A97D] scale-0 group-hover/card:scale-100 group-hover/card:bg-[#C6A97D] group-hover/card:text-black group-hover/card:border-[#C6A97D] transition-all duration-300 delay-75">
                   <FiArrowUpRight size={15} />
                 </div>

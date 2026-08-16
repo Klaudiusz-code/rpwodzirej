@@ -3,38 +3,37 @@
 import { useState } from "react";
 import { FiStar, FiChevronDown, FiExternalLink } from "react-icons/fi";
 
-// Dane opinii - możesz je dowolnie modyfikować lub w przyszłości podpiąć pod CMS
 const reviews = [
   {
     id: 1,
     name: "Kasia i Tomek",
-    date: "Sierpień 2023",
+    date: "Sierpień 2026",
     text: "Robert to absolutny top. Miałem obawy przed wodzirejem, ale on wziął to na siebie i o 23:00 cały parkiet trząsł się do basu. Do tego saksofon przy pierwszym tańcu rozłożył pół sali. Goście do dzisiaj dzwonią i pytają, kto grał.",
   },
   {
     id: 2,
     name: "Ania i Marcin",
-    date: "Czerwiec 2023",
+    date: "Czerwiec 2026",
     text: "Saksofon podczas pierwszego tańca to był strzał w dziesiątkę. Nie musieliśmy szukać osobnego muzyka, barmana i DJ-a. Wszystko w jednym, a poziom profesjonalizmu na najwyższym poziomie. Pełen spokój przed weselem.",
   },
   {
     id: 3,
     name: "Ola i Paweł",
-    date: "Wrzesień 2022",
+    date: "Wrzesień 2026",
     text: "Najlepsza decyzja jaką podjęliśmy organizując wesele. Zero krępujących zabaw na siłę, a jednak parkiet był pełny od początku do końca. Robert świetnie czyta tłum i wie, kiedy zagrać coś spokojniejszego.",
   },
   {
     id: 4,
     name: "Magda i Krzysztof",
-    date: "Maj 2023",
+    date: "Maj 2026",
     text: "Show barmański z ogniem zrobił niesamowite wrażenie na gościach. Muzyka dopasowana idealnie do naszych preferencji, prowadzenie dyskretne, ale z klasą. Serdecznie polecamy każdej parze młodej!",
   },
 ];
 
 export default function SocialProof() {
-  // Ile opinii pokazujemy domyślnie: 2 na mobile, 3 na większych ekranach
+
   const [isExpanded, setIsExpanded] = useState(false);
-  const initialCount = 2; // Możesz zmienić na 3, jeśli wolisz
+  const initialCount = 2; 
 
   const visibleReviews = isExpanded ? reviews : reviews.slice(0, initialCount);
   const hiddenCount = reviews.length - initialCount;
@@ -44,7 +43,6 @@ export default function SocialProof() {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
       <div className="max-w-4xl mx-auto">
-        {/* NAGŁÓWEK */}
         <div className="text-center mb-12 md:mb-16">
           <p className="text-[#C6A97D] font-semibold text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">
             Co mówią o nas nowożeńcy
@@ -54,7 +52,6 @@ export default function SocialProof() {
           </h2>
         </div>
 
-        {/* LISTA OPINII */}
         <div className="space-y-4 sm:space-y-6">
           {visibleReviews.map((review) => (
             <div
@@ -86,7 +83,6 @@ export default function SocialProof() {
           ))}
         </div>
 
-        {/* PRZYCISK ROZWIJANIA */}
         {hiddenCount > 0 && (
           <div className="flex justify-center mt-8">
             <button
@@ -104,10 +100,9 @@ export default function SocialProof() {
           </div>
         )}
 
-        {/* PRZYCISK DO ZEWNĘTRZNEGO SERWISU (np. Facebook) */}
         <div className="mt-12 text-center">
           <a
-            href="https://facebook.com" // TUTAJ WKLEJ LINK DO SWOICH OPINII (np. zaledwie.pl lub fb)
+            href="https://www.facebook.com/rpeventsrobertpierz/reviews?locale=pl_PL" 
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2.5 text-[#C6A97D] hover:text-[#d4b88e] font-semibold text-sm sm:text-base transition-colors duration-300"

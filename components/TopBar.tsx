@@ -22,10 +22,8 @@ export default function TopBar() {
         isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      {/* Zmieniono justify-between na justify-center na mobile (md:justify-between) */}
       <div className="max-w-[1300px] mx-auto px-6 lg:px-8 py-2.5 flex justify-center md:justify-between items-center">
         
-        {/* Lewa strona (ukryta na mobile) */}
         <div className="hidden md:flex items-center gap-8">
           <a
             href="tel:+48507177939"
@@ -39,10 +37,9 @@ export default function TopBar() {
           </span>
         </div>
 
-        {/* Prawa strona - na mobile pokazują się same ikony bez tekstu */}
         <div className="flex items-center gap-5 md:gap-6 md:ml-auto font-semibold">
           <a
-            href="https://www.instagram.com/djrobertpierz/"
+            href="https://www.instagram.com/rpevents.robertpierz/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-[#C6A97D] hover:text-white transition-colors duration-300"
