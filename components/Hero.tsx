@@ -15,7 +15,6 @@ export default function Hero() {
       id="start"
       className="relative h-screen min-h-[700px] sm:min-h-[800px] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* === BACKGROUND VIDEO === */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -28,26 +27,21 @@ export default function Hero() {
           <source src="/filmik-hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Łagodny gradient z dołu */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/30 z-20 pointer-events-none"></div>
-
-        {/* Winietowanie - skupia wzrok na środku, świetnie wygląda na małych ekranach */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,black_85%)] z-20 pointer-events-none"></div>
       </div>
 
-      {/* === ZŁOTE ŚWIATŁO (skalowane dla ekranów) === */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[250px] sm:w-[600px] sm:h-[400px] lg:w-[700px] lg:h-[500px] bg-[#C6A97D] rounded-full filter blur-[120px] sm:blur-[180px] opacity-[0.15] z-20 pointer-events-none"></div>
 
-      {/* === TREŚĆ GŁÓWNA === */}
-      {/* pb-28 sm:pb-36 lg:pb-40 optymalnie centruje tekst względem paska na dole na każdym urządzeniu */}
-      <div className="relative z-30 max-w-4xl sm:max-w-5xl mx-auto px-5 sm:px-6 text-center w-full pb-28 sm:pb-36 lg:pb-40 pt-16 sm:pt-20">
+  
+      <div className="relative z-30 max-w-4xl sm:max-w-5xl mx-auto px-5 sm:px-6 text-center w-full pt-8 sm:pt-0 pb-8 sm:pb-36 lg:pb-44">
         <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black leading-tight sm:leading-[1.1] tracking-tight text-white mb-3 sm:mb-4">
           Wesela z klasą, pełnym parkietem i luzem.
         </h1>
 
-        <h1 className="text-2xl sm:text-4xl lg:text-6xl font-extralight leading-snug sm:leading-[1.15] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#C6A97D] via-[#e2c992] to-[#a38555] mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-4xl lg:text-6xl font-extralight leading-snug sm:leading-[1.15] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#C6A97D] via-[#e2c992] to-[#a38555] mb-6 sm:mb-8">
           Muzyka na żywo, saksofon i show barmański.
-        </h1>
+        </h2>
 
         <p className="text-base sm:text-lg text-gray-300/90 max-w-xl sm:max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12">
           Jeden kontakt, cztery usługi na najwyższym poziomie. Prowadzę imprezy
@@ -73,7 +67,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* === PASEK STATYSTYK === */}
       <div className="absolute bottom-0 left-0 right-0 z-40 bg-black/60 backdrop-blur-xl border-t border-white/[0.08]">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4">
           <div className="py-5 sm:py-7 px-4 sm:px-6 flex flex-col items-center justify-center border-r border-white/[0.06]">
