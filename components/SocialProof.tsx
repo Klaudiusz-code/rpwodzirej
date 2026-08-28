@@ -1,118 +1,103 @@
 "use client";
 
-import { useState } from "react";
-import { FiStar, FiChevronDown, FiExternalLink } from "react-icons/fi";
+import { useEffect, useRef } from "react";
 
-const reviews = [
+const testimonials = [
   {
-    id: 1,
-    name: "Kasia i Tomek",
-    date: "Sierpień 2026",
-    text: "Robert to absolutny top. Miałem obawy przed wodzirejem, ale on wziął to na siebie i o 23:00 cały parkiet trząsł się do basu. Do tego saksofon przy pierwszym tańcu rozłożył pół sali. Goście do dzisiaj dzwonią i pytają, kto grał.",
+    quote:
+      "Nie chciałam typowego wesela z gotowymi playlistami. Wyczuł parkiet w 5 minut i zagrał dokładnie to, czego potrzebowaliśmy. Saksofon podczas pierwszego tańca to był moment, który nasi goście wspominają do dziś.",
+    name: "Anna & Maciej",
+    event: "Wesele, lipiec 2026",
   },
   {
-    id: 2,
-    name: "Ania i Marcin",
-    date: "Czerwiec 2026",
-    text: "Saksofon podczas pierwszego tańca to był strzał w dziesiątkę. Nie musieliśmy szukać osobnego muzyka, barmana i DJ-a. Wszystko w jednym, a poziom profesjonalizmu na najwyższym poziomie. Pełen spokój przed weselem.",
+    quote:
+      "Olbrzymia ulga, że nie musieliśmy układać timeline'u z trzema różnymi osobami. Wszystko zgrało się perfekcyjnie, a prowadzenie było naturalne, bez wciskania na siłę sztucznych zabaw.",
+    name: "Kasia & Tomek",
+    event: "Wesele, sierpień 2026",
   },
   {
-    id: 3,
-    name: "Ola i Paweł",
-    date: "Wrzesień 2026",
-    text: "Najlepsza decyzja jaką podjęliśmy organizując wesele. Zero krępujących zabaw na siłę, a jednak parkiet był pełny od początku do końca. Robert świetnie czyta tłum i wie, kiedy zagrać coś spokojniejszego.",
-  },
-  {
-    id: 4,
-    name: "Magda i Krzysztof",
-    date: "Maj 2026",
-    text: "Show barmański z ogniem zrobił niesamowite wrażenie na gościach. Muzyka dopasowana idealnie do naszych preferencji, prowadzenie dyskretne, ale z klasą. Serdecznie polecamy każdej parze młodej!",
+    quote:
+      "Najlepsza decyzja, jaką podjęliśmy planując ślub. Energia, z jaką zagrał saksofon w środku żywego seta, rozbujała wszystkich, nawet tych, którzy zazwyczaj nie tańczą.",
+    name: "Ola & Piotr",
+    event: "Event firmowy, październik 2026",
   },
 ];
 
 export default function SocialProof() {
+  const widgetRef = useRef<HTMLDivElement>(null);
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const initialCount = 2; 
-
-  const visibleReviews = isExpanded ? reviews : reviews.slice(0, initialCount);
-  const hiddenCount = reviews.length - initialCount;
+  useEffect(() => {
+    if (!widgetRef.current) return;
+    widgetRef.current.innerHTML = `
+      <div class="wzk-widget iframe-height" data-wzk-widget-type="type1" data-wzk-notice="60030" style="max-width: 100%;">
+        <div class="wzk-widget-footer" style="background-color:#F5F6FA;text-align:center;padding:16px;font-size:12px;line-height:12px;border-radius:0 0 8px 8px;">
+          <a class="wzk-accent-color" title="Dj/Sax Robert Pierz (rp.events)" href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/#opinie" rel="nofollow" target="_blank" style="color:currentColor;text-decoration:none;">Dj/Sax Robert Pierz (rp.events)</a>
+          <img style="margin:8px auto 0;display:block" src="https://widgets.4wzk.pl/dist/img/footer-logo.svg" alt="Wesele z klasą" />
+        </div>
+      </div>
+    `;
+    const script = document.createElement("script");
+    script.src = "https://widgets.4wzk.pl/dist/js/widget.js";
+    script.defer = true;
+    widgetRef.current.appendChild(script);
+    return () => {
+      if (widgetRef.current) widgetRef.current.innerHTML = "";
+    };
+  }, []);
 
   return (
-    <section className="py-20 md:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 bg-[#050505] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12 md:mb-16">
-          <p className="text-[#C6A97D] font-semibold text-[10px] sm:text-xs uppercase tracking-widest mb-3 sm:mb-4">
-            Co mówią o nas nowożeńcy
+    <section
+      id="opinie"
+      className="py-24 md:py-36 px-6 bg-[#050505] border-t border-white/5"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-16 md:mb-20 text-center">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
+            Social Proof
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
-            Opinie, które budują zaufanie
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.15] tracking-tight">
+            Co mówią po weselu
           </h2>
         </div>
 
-        <div className="space-y-4 sm:space-y-6">
-          {visibleReviews.map((review) => (
-            <div
-              key={review.id}
-              className="bg-[#0a0a0a] border border-white/[0.08] rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-white/15"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4">
-                <div>
-                  <p className="text-white font-bold text-sm sm:text-base">
-                    {review.name}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-3 space-y-10">
+            {testimonials.map((item, i) => (
+              <div key={i} className="group relative flex flex-col">
+                <span className="absolute -top-4 -left-2 text-[6rem] font-serif text-white/[0.03] leading-none select-none pointer-events-none">
+                  &ldquo;
+                </span>
+                <div className="relative z-10 flex flex-col">
+                  <p className="text-gray-400 text-sm leading-[1.85] font-poppins mb-6">
+                    {item.quote}
                   </p>
-                  <p className="text-gray-600 text-xs sm:text-sm">
-                    {review.date}
-                  </p>
-                </div>
-                <div className="flex gap-0.5">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <FiStar
-                      key={i}
-                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C6A97D] fill-[#C6A97D]"
-                    />
-                  ))}
+                  <div>
+                    <div className="w-8 h-px bg-white/20 mb-4" />
+                    <p className="text-white text-sm font-semibold font-poppins tracking-wide">
+                      {item.name}
+                    </p>
+                    <p className="text-gray-600 text-xs tracking-wider uppercase font-poppins mt-1">
+                      {item.event}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                &ldquo;{review.text}&rdquo;
-              </p>
-            </div>
-          ))}
-        </div>
-
-        {hiddenCount > 0 && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="group inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full px-6 py-3 transition-all duration-300"
-            >
-              {isExpanded
-                ? "Zwiń opinie"
-                : `Pokaż jeszcze ${hiddenCount} opinie`}
-              <FiChevronDown
-                size={16}
-                className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-              />
-            </button>
+            ))}
           </div>
-        )}
 
-        <div className="mt-12 text-center">
-          <a
-            href="https://www.facebook.com/rpeventsrobertpierz/reviews?locale=pl_PL" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 text-[#C6A97D] hover:text-[#d4b88e] font-semibold text-sm sm:text-base transition-colors duration-300"
-          >
-            Zobacz wszystkie opinie na Facebooku
-            <FiExternalLink
-              size={14}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
-          </a>
+          <div className="lg:col-span-2">
+            <div className="sticky top-28">
+              <p className="text-gray-600 text-xs tracking-[0.2em] uppercase font-poppins mb-4 text-center lg:text-left">
+                Zobacz więcej na Wesele z Klasą
+              </p>
+              <div className="relative bg-[#111111] border border-white/10 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+                <div className="max-h-[400px] lg:max-h-[600px] overflow-hidden">
+                  <div ref={widgetRef}></div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent pointer-events-none z-10"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

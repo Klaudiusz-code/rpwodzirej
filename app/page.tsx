@@ -1,65 +1,46 @@
-import type { Metadata } from "next";
-import AboutMe from "@/components/About";
-import Contact from "@/components/Contact";
-import FAQ from "@/components/Faq";
-import Footer from "@/components/Footer";
-import Gallery from "@/components/Gallery";
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
-import Packages from "@/components/Packages";
-import Services from "@/components/Services";
-import SocialProof from "@/components/SocialProof";
-import Timeline from "@/components/TimeLine";
-import TopBar from "@/components/TopBar";
+"use client";
 
-// === PROSTE SEO ===
-export function generateMetadata(): Metadata {
-  return {
-    title: "DJ na Wesele Kraków | Wodzirej, Barman, Saksofon - RP.events",
-    description:
-      "Odrzuć standard. Kompleksowa obsługa wesel i eventów: DJ, Wodzirej, Barman i Saksofonista w jednym pakiecie. Elegancja, energia i brak sztampowych zabaw. Sprawdź wolne terminy!",
-    keywords: [
-      "dj na wesele kraków",
-      "dj wesele",
-      "wodzirej kraków",
-      "dobry dj na wesele",
-      "barman na wesele",
-      "saksofonista na wesele",
-      "dj robert pierz",
-      "rp.events",
-      "obsługa wesel kraków",
-    ],
-    authors: [{ name: "Robert Pierz - RP.events" }],
-    openGraph: {
-      type: "website",
-      locale: "pl_PL",
-      url: "https://rpevents.pl", // <-- WSTAW SWÓJ PRAWDZIWY ADRES URL
-      siteName: "RP.events - DJ Robert Pierz",
-      title: "DJ na Wesele Kraków | Wodzirej, Barman, Saksofon - RP.events",
-      description:
-        "Kompleksowy pakiet 4w1 na Twoje wesele: DJ, Wodzirej, Barman i Saksofon. Profesjonalizm, energia i brak sztampowych zabaw.",
-  
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
-  };
-}
+import { useEffect } from "react";
+import TopBar from "@/components/TopBar";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Process from "@/components/Process";
+import Showreel from "@/components/Showreel";
+import AboutMe from "@/components/AboutMe";
+import Scope from "@/components/Scope";
+import SocialProof from "@/components/SocialProof";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in-view");
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    const sections = document.querySelectorAll("main > section");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <main className="bg-[#050505] text-white font-sans pt-[118px] selection:bg-[#D4AF37]/30">
+    <main className="bg-[#050505] text-white font-sans selection:bg-white/20">
       <TopBar />
       <Navbar />
       <Hero />
-      <Services />
+      <Process />
+      <Showreel />
       <AboutMe />
-      <Packages />
-      <Timeline />
+      <Scope />
       <SocialProof />
-      <Gallery />
-      <FAQ />
       <Contact />
       <Footer />
     </main>
