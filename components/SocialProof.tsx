@@ -53,10 +53,10 @@ export default function SocialProof() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 md:mb-20 text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
-            Social Proof
+            OPINIE
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.15] tracking-tight">
-            Co mówią po weselu
+            Co mówią po pary
           </h2>
         </div>
 

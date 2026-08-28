@@ -18,17 +18,16 @@ export default function Footer() {
           <div className="md:max-w-xs">
             <div className="mb-6">
               <Image
-                src="/logo-rp.png"
+                src="/rp-wektor.svg"
                 alt="RP.events"
-                width={40}
-                height={40}
-                className="w-10 h-10 opacity-80"
+                width={160}
+                height={48}
+                className="h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
                 priority={false}
               />
             </div>
             <p className="text-gray-600 text-sm leading-relaxed">
-              Kompleksowa obsługa eventów. DJ, Wodzirej, Saksofon, Barman.
-              Kraków i cała Polska.
+              DJ, Wodzirej, Saksofon, Barman. Kraków i cała Polska.
             </p>
           </div>
 

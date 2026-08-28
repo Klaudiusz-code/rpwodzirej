@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Process from "@/components/Process";
 import Showreel from "@/components/Showreel";
 import AboutMe from "@/components/AboutMe";
 import Scope from "@/components/Scope";
@@ -36,7 +35,6 @@ export default function Home() {
       <TopBar />
       <Navbar />
       <Hero />
-      <Process />
       <Showreel />
       <AboutMe />
       <Scope />

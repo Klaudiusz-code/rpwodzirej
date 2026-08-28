@@ -1,21 +1,22 @@
+
 const services = [
   {
     title: "DJ",
     highlight: "Muzyka dopasowana do ludzi, nie do gotowej playlisty.",
-    desc: "Nie gram wesel według jednego schematu. Przygotowuję się wcześniej razem z Parą Młodą, ale podczas imprezy najważniejsze jest to, co dzieje się na parkiecie. Łączę polskie i zagraniczne klasyki z nowszą muzyką, zmieniam klimat wtedy, kiedy tego wymaga impreza, i unikam grania czegoś tylko dlatego, że „na weselu tak wypada”.",
+    desc: "Przygotowuję się wcześniej razem z Parą Młodą, ale podczas imprezy najważniejszy jest parkiet. Łączę polskie i zagraniczne klasyki z nowszą muzyką, zmieniam klimat wraz z energią imprezy i unikam grania czegoś tylko dlatego, że „na weselu tak wypada”.",
   },
   {
     title: "Prowadzenie",
-    highlight:
-      "Konkretnie, swobodnie i bez niepotrzebnego przejmowania mikrofonu.",
-    desc: "Prowadzę najważniejsze momenty wesela, dbam o tempo wydarzenia i kontaktuję się z obsługą sali, fotografem oraz filmowcem. Animacje i zabawy dobieramy wcześniej. Nie chodzi o wypełnienie każdej przerwy atrakcją, tylko o stworzenie dobrego flow całego wieczoru.",
+    highlight: "Konkretnie, swobodnie i bez niepotrzebnego przejmowania mikrofonu.",
+    desc: "Prowadzę najważniejsze momenty wesela, dbam o tempo wydarzenia i współpracuję z obsługą sali, fotografem oraz filmowcem. Animacje i zabawy ustalamy wcześniej, aby całość miała naturalne tempo i dobre flow.",
   },
   {
     title: "Saksofon live",
     highlight: "Saksofon jako część imprezy, a nie osobny „występ”.",
-    desc: "Gram zarówno podczas spokojniejszych momentów, jak i bezpośrednio na parkiecie do setów DJ-skich. Saksofon może pojawić się przy wejściu Pary Młodej, pierwszym tańcu, kolacji albo w środku najbardziej energetycznego seta.",
+    desc: "Gram podczas spokojniejszych momentów oraz bezpośrednio na parkiecie do setów DJ-skich. Saksofon może pojawić się przy wejściu Pary Młodej, pierwszym tańcu, kolacji lub w środku energetycznego seta.",
   },
 ];
+
 
 export default function Scope() {
   return (

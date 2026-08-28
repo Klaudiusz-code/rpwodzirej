@@ -15,8 +15,7 @@ export default function Contact() {
             Kontakt
           </p>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extralight text-white leading-[1.1] tracking-tight mb-8">
-            Zarezerwuj
-            <br /> swój termin
+            Sprawdź termin
           </h2>
           <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-16 max-w-md">
             Odpowiadam błyskawicznie. Zostaw numer i datę, a ja wrócę z
@@ -107,9 +106,6 @@ export default function Contact() {
                 className="transition-transform group-hover:translate-x-1"
               />
             </button>
-            <p className="text-center text-gray-700 text-xs -mt-2">
-              Zazwyczaj odpowiadam w ciągu 2 godzin
-            </p>
           </form>
         </div>
       </div>

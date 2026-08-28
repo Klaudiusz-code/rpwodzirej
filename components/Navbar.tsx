@@ -39,15 +39,15 @@ export default function Navbar() {
         <div className="max-w-[1300px] mx-auto px-6 lg:px-8 flex items-center justify-between h-full w-full">
           <a
             href="#start"
-            className="relative w-[120px] h-[40px] flex-shrink-0"
+            className="relative w-[160px] h-[48px] flex-shrink-0 opacity-90 hover:opacity-100 transition-opacity duration-300"
           >
             <Image
-              src="/logo-rp.png"
+              src="/rp-wektor.svg"
               alt="RP.events"
               fill
-              className="object-contain object-left"
+              className="h-20 object-contain object-left"
               priority
-              sizes="120px"
+              sizes="170px"
             />
           </a>
 
@@ -97,14 +97,14 @@ export default function Navbar() {
           <a
             href="#start"
             onClick={() => setIsMenuOpen(false)}
-            className="relative w-[100px] h-[30px]"
+            className="relative w-[140px] h-[42px] opacity-90 hover:opacity-100 transition-opacity duration-300"
           >
             <Image
-              src="/logo-rp.png"
+              src="/rp-wektor.svg"
               alt="RP.events"
               fill
               className="object-contain object-left"
-              sizes="100px"
+              sizes="140px"
             />
           </a>
           <button
