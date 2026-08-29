@@ -5,21 +5,21 @@ import { useEffect, useRef } from "react";
 const testimonials = [
   {
     quote:
-      "Nie chciałam typowego wesela z gotowymi playlistami. Wyczuł parkiet w 5 minut i zagrał dokładnie to, czego potrzebowaliśmy. Saksofon podczas pierwszego tańca to był moment, który nasi goście wspominają do dziś.",
-    name: "Anna & Maciej",
-    event: "Wesele, lipiec 2026",
+      "Pełen profesjonalizm i świetna energia! 🥳 Dzięki niemu każdy bawił się od pierwszej do ostatniej minuty. Świetny kontakt z gośćmi i niezapomniana atmosfera. Polecamy z całego serca! ❤️",
+    name: "Aleksandra",
+    event: "Wesele",
   },
   {
     quote:
-      "Olbrzymia ulga, że nie musieliśmy układać timeline'u z trzema różnymi osobami. Wszystko zgrało się perfekcyjnie, a prowadzenie było naturalne, bez wciskania na siłę sztucznych zabaw.",
-    name: "Kasia & Tomek",
-    event: "Wesele, sierpień 2026",
+      "Bardzo serdecznie polecamy! Pełen profesjonalizm, świetny kontakt i ogromne zaangażowanie od początku do końca. Zarówno my, jak i nasi goście bawiliśmy się świetnie. Wcześniej byłam sceptycznie nastawiona do DJ-a na weselu, ale Robert całkowicie zmienił moje podejście. Udowodnił, że wesele z DJ-em może mieć fantastyczny klimat i niezapomnianą atmosferę Dziękujemy Robert!",
+    name: "Weronika",
+    event: "Wesele",
   },
   {
     quote:
-      "Najlepsza decyzja, jaką podjęliśmy planując ślub. Energia, z jaką zagrał saksofon w środku żywego seta, rozbujała wszystkich, nawet tych, którzy zazwyczaj nie tańczą.",
-    name: "Ola & Piotr",
-    event: "Event firmowy, październik 2026",
+      "Robert zrobił robotę na naszym weselu! Parkiet był pełny praktycznie cały czas, a muzyka trafiała w gust każdego. Super kontakt i wyczucie klimatu imprezy. No i saksofon na żywo – totalny sztos!",
+    name: "Grzegorz",
+    event: "Wesele",
   },
 ];
 
