@@ -6,7 +6,8 @@ export default function Hero() {
   return (
     <section
       id="start"
-      className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-black"
+      // DODANO: pt-28 (112px) - zepchnie wyśrodkowany tekst w dół, pod navbar.
+      className="relative h-screen max-h-[750px] pt-28 flex items-center justify-center overflow-hidden bg-black"
     >
       <div className="absolute inset-0 z-0">
         <video
@@ -23,13 +24,13 @@ export default function Hero() {
       </div>
 
       <div className="relative z-30 text-center px-6 w-full">
-        <h1 className="text-6xl sm:text-8xl lg:text-9xl font-extralight tracking-tighter text-white mb-6">
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extralight tracking-tighter text-white mb-4">
           ROBERT
           <br />
           PIERZ
         </h1>
 
-        <div className="flex items-center justify-center gap-4 mb-10">
+        <div className="flex items-center justify-center gap-4 mb-8">
           <div className="h-px w-12 bg-white/30"></div>
           <p className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-gray-400">
             DJ &nbsp;·&nbsp; Wodzirej &nbsp;·&nbsp; Saksofon
@@ -37,7 +38,7 @@ export default function Hero() {
           <div className="h-px w-12 bg-white/30"></div>
         </div>
 
-        <p className="text-gray-500 text-base sm:text-lg font-light max-w-md mx-auto mb-12 leading-relaxed">
+        <p className="text-gray-500 text-sm sm:text-base font-light max-w-md mx-auto mb-8 leading-relaxed">
           Tworzę unikalny klimat eventów. Bez szablonów, z pełną uwagą na
           detale.
         </p>
