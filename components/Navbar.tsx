@@ -4,18 +4,24 @@ import { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
 import { FiMenu, FiX } from "react-icons/fi";
 
-export default function Navbar() {
+export default function Navbar({ settings }: { settings: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "unset";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isMenuOpen]);
 
   const links = [
@@ -26,6 +32,14 @@ export default function Navbar() {
     "Opinie",
     "Kontakt",
   ];
+
+  const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
+
+  const logoAlt = settings?.logo?.node?.altText || "RP.events";
+
+  const phone = settings?.numerTelefonuUstawienia;
+
+  const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
 
   return (
     <>
@@ -39,8 +53,8 @@ export default function Navbar() {
         <div className="max-w-[1300px] mx-auto px-6 lg:px-8 flex items-center justify-between h-full w-full">
           <a href="#start" className="flex-shrink-0">
             <img
-              src="/rp-wektor.svg"
-              alt="RP.events"
+              src={logo}
+              alt={logoAlt}
               className="w-[400px] h-[80px] max-w-[55vw] object-contain object-left"
             />
           </a>
@@ -53,8 +67,10 @@ export default function Navbar() {
                   className="text-[13px] font-medium text-gray-500 hover:text-white transition-colors duration-300 relative"
                 >
                   {item}
+
                   <span className="absolute bottom-[-2px] left-0 w-0 h-[1px] bg-white transition-all duration-300 hover:w-full"></span>
                 </a>
+
                 {index < links.length - 1 && (
                   <div className="w-px h-3 bg-white/20"></div>
                 )}
@@ -80,12 +96,18 @@ export default function Navbar() {
       </nav>
 
       <div
-        className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
         onClick={() => setIsMenuOpen(false)}
       ></div>
 
       <div
-        className={`fixed top-0 right-0 bottom-0 z-[70] w-[85vw] max-w-sm bg-[#050505] border-l border-white/10 flex flex-col transition-transform duration-500 ease-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 bottom-0 z-[70] w-[85vw] max-w-sm bg-[#050505] border-l border-white/10 flex flex-col transition-transform duration-500 ease-out ${
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <a
@@ -93,12 +115,9 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
             className="w-[180px]"
           >
-            <img
-              src="/rp-wektor.svg"
-              alt="RP.events"
-              className="w-[220px] h-[150px]"
-            />
+            <img src={logo} alt={logoAlt} className="w-[220px] h-[150px]" />
           </a>
+
           <button
             onClick={() => setIsMenuOpen(false)}
             className="text-gray-500 hover:text-white transition-colors p-1"
@@ -130,8 +149,14 @@ export default function Navbar() {
           </div>
 
           <div
-            className={`mt-10 transition-all duration-500 ease-out ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-            style={{ transitionDelay: isMenuOpen ? "500ms" : "0ms" }}
+            className={`mt-10 transition-all duration-500 ease-out ${
+              isMenuOpen
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+            style={{
+              transitionDelay: isMenuOpen ? "500ms" : "0ms",
+            }}
           >
             <a
               href="#kontakt"
@@ -144,16 +169,19 @@ export default function Navbar() {
         </div>
 
         <div
-          className={`p-6 border-t border-white/10 text-center transition-all duration-500 delay-100 ${isMenuOpen ? "opacity-100" : "opacity-0"}`}
+          className={`p-6 border-t border-white/10 text-center transition-all duration-500 delay-100 ${
+            isMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
         >
           <p className="text-[10px] text-gray-600 mb-2 uppercase tracking-[0.25em]">
             Zadzwoń
           </p>
+
           <a
-            href="tel:+48507177939"
+            href={phoneHref}
             className="text-white text-xl font-light tracking-wider hover:text-gray-400 transition-colors"
           >
-            507 177 939
+            {phone}
           </a>
         </div>
       </div>

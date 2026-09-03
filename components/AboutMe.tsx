@@ -1,27 +1,34 @@
 "use client";
 
-import Image from "next/image";
-import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
 
-const socials = [
-  {
-    name: "Instagram",
-    href: "https://instagram.com/twojprofil",
-    icon: FaInstagram,
-  },
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/rpeventsrobertpierz",
-    icon: FaTiktok,
-  },
-  {
-    name: "YouTube",
-    href: "https://www.youtube.com/@rpeventsrobertpierz",
-    icon: FaYoutube,
-  },
-];
+export default function AboutMe({
+  data,
+  settings,
+}: {
+  data: any;
+  settings: any;
+}) {
+  if (!data) return null;
 
-export default function AboutMe() {
+  const socials = [
+    {
+      name: "Instagram",
+      href: settings?.instagram?.linkDoProfiluInstagram,
+      icon: FaInstagram,
+    },
+    {
+      name: "Facebook",
+      href: settings?.facebook?.linkDoProfiluFacebook,
+      icon: FaFacebook,
+    },
+    {
+      name: "YouTube",
+      href: settings?.youtbue?.linkDoProfiluYoutube,
+      icon: FaYoutube,
+    },
+  ].filter((social) => social.href);
+
   return (
     <section
       id="o-mnie"
@@ -30,43 +37,32 @@ export default function AboutMe() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         <div className="relative">
           <div className="aspect-[3/4] bg-[#111] rounded-sm overflow-hidden">
-            <Image
-              src="/avatar.jpg"
+            <img
+              src={data.aboutImage?.node?.sourceUrl || "/avatar.jpg"}
               alt="Robert Pierz"
               width={800}
               height={1100}
               className="w-full h-full object-cover"
-              priority
             />
           </div>
         </div>
 
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
-            O mnie
+            {data.nadtytul}
           </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-[2.8rem] font-serif font-bold text-white leading-[1.1] tracking-tight mb-8">
-            Nazywam się Robert.
-            <br />
-            <span className="text-gray-500">Gram, prowadzę, żyję tym.</span>
-          </h2>
+
+          <h2
+            className="text-3xl sm:text-4xl lg:text-[2.8rem] font-serif font-bold text-white leading-[1.1] tracking-tight mb-8"
+            dangerouslySetInnerHTML={{
+              __html: data.tytul,
+            }}
+          />
 
           <div className="space-y-5 text-gray-400 text-[0.95rem] leading-[1.85] font-poppins">
-            <p>
-              Od ponad 18 lat gram na saksofonie, a od ponad 13 lat jestem
-              związany z weselami i eventami. Przez wiele lat współpracowałem w
-              zespole, dziś łączę rolę DJ-a, prowadzącego i saksofonisty.
-            </p>
-            <p>
-              Nie pracuję według jednego gotowego scenariusza. Każda impreza
-              jest inna, dlatego zależy mi przede wszystkim na dobrym kontakcie
-              z Parą Młodą, wyczuciu gości i prowadzeniu wydarzenia w taki
-              sposób, żeby wszystko było naturalne, a nie „odegrane z kartki”.
-            </p>
-            <p>
-              Lubię nowoczesne wesela, dobrą muzykę, energię na parkiecie i
-              eleganckie prowadzenie bez zbędnego przerywania zabawy.
-            </p>
+            <p>{data.akapit1}</p>
+            <p>{data.akapit2}</p>
+            <p>{data.akapit3}</p>
           </div>
 
           <div className="mt-10 pt-8 border-t border-white/10">
@@ -81,6 +77,7 @@ export default function AboutMe() {
                   aria-label={social.name}
                 >
                   <social.icon size={16} />
+
                   <span className="text-xs tracking-wider uppercase font-poppins font-medium">
                     {social.name}
                   </span>

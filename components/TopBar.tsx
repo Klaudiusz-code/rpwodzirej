@@ -5,14 +5,21 @@ import { FiPhone, FiMapPin } from "react-icons/fi";
 import { SiInstagram } from "react-icons/si";
 import { FiYoutube } from "react-icons/fi";
 
-export default function TopBar() {
+export default function TopBar({ settings }: { settings: any }) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const phone = settings?.numerTelefonuUstawienia;
+  const location = settings?.lokalizacjaUstawienia;
+  const instagram = settings?.instagram?.linkDoProfiluInstagram;
+  const youtube = settings?.youtbue?.linkDoProfiluYoutube;
 
   return (
     <div
@@ -23,20 +30,24 @@ export default function TopBar() {
       <div className="max-w-[1300px] mx-auto px-6 lg:px-8 py-2.5 flex justify-center md:justify-between items-center">
         <div className="hidden md:flex items-center gap-8">
           <a
-            href="tel:+48507177939"
+            href={`tel:${String(phone || "").replace(/\s/g, "")}`}
             className="flex items-center gap-2 hover:text-white transition-colors duration-300"
           >
-            <FiPhone size={11} className="opacity-60" /> 507 177 939
+            <FiPhone size={11} className="opacity-60" />
+            {phone}
           </a>
+
           <span className="w-px h-3 bg-white/10"></span>
+
           <span className="flex items-center gap-2 text-gray-700">
-            <FiMapPin size={11} className="opacity-60" /> Kraków & cała Polska
+            <FiMapPin size={11} className="opacity-60" />
+            {location}
           </span>
         </div>
 
         <div className="flex items-center gap-5 md:gap-6 md:ml-auto font-semibold">
           <a
-            href="https://www.instagram.com/rpevents.robertpierz/"
+            href={instagram || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300"
@@ -44,8 +55,9 @@ export default function TopBar() {
             <SiInstagram size={14} />
             <span className="hidden md:inline">Instagram</span>
           </a>
+
           <a
-            href="https://youtube.com/@rpeventsrobertpierz"
+            href={youtube || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-gray-700 hover:text-white transition-colors duration-300"

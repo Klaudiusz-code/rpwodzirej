@@ -4,12 +4,20 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FiInstagram, FiYoutube } from "react-icons/fi";
 
-export default function Footer() {
+export default function Footer({ settings }: { settings: any }) {
   const [year, setYear] = useState("");
 
   useEffect(() => {
     setYear(new Date().getFullYear().toString());
   }, []);
+
+  const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
+
+  const logoAlt = settings?.logo?.node?.altText || "RP.events";
+
+  const instagram = settings?.instagram?.linkDoProfiluInstagram;
+
+  const youtube = settings?.youtbue?.linkDoProfiluYoutube;
 
   return (
     <footer className="bg-black border-t border-white/10">
@@ -18,14 +26,15 @@ export default function Footer() {
           <div className="md:max-w-xs">
             <div className="mb-6">
               <Image
-                src="/rp-wektor.svg"
-                alt="RP.events"
+                src={logo}
+                alt={logoAlt}
                 width={160}
                 height={48}
                 className="h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
                 priority={false}
               />
             </div>
+
             <p className="text-gray-600 text-sm leading-relaxed">
               DJ, Wodzirej, Saksofon, Barman. Kraków i cała Polska.
             </p>
@@ -36,6 +45,7 @@ export default function Footer() {
               <h4 className="text-[10px] font-bold text-gray-700 uppercase tracking-[0.2em] mb-5">
                 Nawigacja
               </h4>
+
               <ul className="space-y-3">
                 {["Start", "Realizacje", "O mnie", "Oferta", "Kontakt"].map(
                   (link) => (
@@ -56,52 +66,71 @@ export default function Footer() {
               <h4 className="text-[10px] font-bold text-gray-700 uppercase tracking-[0.2em] mb-5">
                 Social
               </h4>
+
               <ul className="space-y-3">
                 {[
                   {
                     name: "Instagram",
-                    href: "https://www.instagram.com/rpevents.robertpierz/",
+                    href: instagram,
                     icon: FiInstagram,
                   },
                   {
                     name: "YouTube",
-                    href: "https://youtube.com/@rpeventsrobertpierz",
+                    href: youtube,
                     icon: FiYoutube,
                   },
-                ].map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-gray-600 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
-                    >
-                      <link.icon size={12} /> {link.name}
-                    </a>
-                  </li>
-                ))}
+                ]
+                  .filter((link) => link.href)
+                  .map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-gray-600 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
+                      >
+                        <link.icon size={12} /> {link.name}
+                      </a>
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-gray-800">© {year} RP.events</p>
+        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-5">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5">
+            <p className="text-xs text-gray-500">
+              © {year} RP.events. Wszystkie prawa zastrzeżone.
+            </p>
+
+            <span className="hidden sm:block w-px h-3 bg-white/10" />
+
+            <a
+              href="/polityka-prywatnosci"
+              className="text-[10px] uppercase tracking-widest text-gray-600 hover:text-gray-300 transition-colors duration-300"
+            >
+              Polityka prywatności
+            </a>
+          </div>
+
           <a
             href="https://klaudiuszdev.pl"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 text-gray-800 hover:text-gray-500 transition-colors duration-300"
+            className="group flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors duration-300"
           >
             <span className="text-[10px] uppercase tracking-widest">
               Realizacja:
             </span>
+
             <img
               src="https://klaudiuszdev.pl/hello.svg"
               alt="Klaudiusz Dev"
-              className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 transition-opacity"
+              className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity"
             />
-            <span className="text-[10px] font-bold tracking-wide">
+
+            <span className="text-[11px] font-bold tracking-wide">
               klaudiuszdev.pl
             </span>
           </a>

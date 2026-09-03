@@ -2,28 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const testimonials = [
-  {
-    quote:
-      "Pełen profesjonalizm i świetna energia! 🥳 Dzięki niemu każdy bawił się od pierwszej do ostatniej minuty. Świetny kontakt z gośćmi i niezapomniana atmosfera. Polecamy z całego serca! ❤️",
-    name: "Aleksandra",
-    event: "Wesele",
-  },
-  {
-    quote:
-      "Bardzo serdecznie polecamy! Pełen profesjonalizm, świetny kontakt i ogromne zaangażowanie od początku do końca. Zarówno my, jak i nasi goście bawiliśmy się świetnie. Wcześniej byłam sceptycznie nastawiona do DJ-a na weselu, ale Robert całkowicie zmienił moje podejście. Udowodnił, że wesele z DJ-em może mieć fantastyczny klimat i niezapomnianą atmosferę Dziękujemy Robert!",
-    name: "Weronika",
-    event: "Wesele",
-  },
-  {
-    quote:
-      "Robert zrobił robotę na naszym weselu! Parkiet był pełny praktycznie cały czas, a muzyka trafiała w gust każdego. Super kontakt i wyczucie klimatu imprezy. No i saksofon na żywo – totalny sztos!",
-    name: "Grzegorz",
-    event: "Wesele",
-  },
-];
-
-export default function SocialProof() {
+export default function SocialProof({ data }: { data: any }) {
   const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,6 +24,8 @@ export default function SocialProof() {
     };
   }, []);
 
+  if (!data) return null;
+
   return (
     <section
       id="opinie"
@@ -53,31 +34,31 @@ export default function SocialProof() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 md:mb-20 text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
-            OPINIE
+            {data.nadtytul}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.15] tracking-tight">
-            Co mówią po pary
+            {data.tytul}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-3 space-y-10">
-            {testimonials.map((item, i) => (
+            {data.testimonials?.map((item: any, i: number) => (
               <div key={i} className="group relative flex flex-col">
                 <span className="absolute -top-4 -left-2 text-[6rem] font-serif text-white/[0.03] leading-none select-none pointer-events-none">
                   &ldquo;
                 </span>
                 <div className="relative z-10 flex flex-col">
                   <p className="text-gray-400 text-sm leading-[1.85] font-poppins mb-6">
-                    {item.quote}
+                    {item.trescOpinii}
                   </p>
                   <div>
                     <div className="w-8 h-px bg-white/20 mb-4" />
                     <p className="text-white text-sm font-semibold font-poppins tracking-wide">
-                      {item.name}
+                      {item.imie}
                     </p>
                     <p className="text-gray-600 text-xs tracking-wider uppercase font-poppins mt-1">
-                      {item.event}
+                      {item.rodzajWydarzenia}
                     </p>
                   </div>
                 </div>

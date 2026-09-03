@@ -2,11 +2,12 @@
 
 import { FiArrowDown } from "react-icons/fi";
 
-export default function Hero() {
+export default function Hero({ data }: { data: any }) {
+  if (!data) return null;
+
   return (
     <section
       id="start"
-      // DODANO: pt-28 (112px) - zepchnie wyśrodkowany tekst w dół, pod navbar.
       className="relative h-screen max-h-[750px] pt-28 flex items-center justify-center overflow-hidden bg-black"
     >
       <div className="absolute inset-0 z-0">
@@ -25,22 +26,23 @@ export default function Hero() {
 
       <div className="relative z-30 text-center px-6 w-full">
         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extralight tracking-tighter text-white mb-4">
-          ROBERT
+          {data.imieNazwa}
           <br />
-          PIERZ
+          {data.nazwiskoDrugaLinia}
         </h1>
 
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="h-px w-12 bg-white/30"></div>
-          <p className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-gray-400">
-            DJ &nbsp;·&nbsp; Wodzirej &nbsp;·&nbsp; Saksofon
-          </p>
+          {/* Używamy dangerouslySetInnerHTML, bo w WP możesz mieć encje HTML jak &nbsp; */}
+          <p
+            className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-gray-400"
+            dangerouslySetInnerHTML={{ __html: data.specjalizacje }}
+          />
           <div className="h-px w-12 bg-white/30"></div>
         </div>
 
         <p className="text-gray-500 text-sm sm:text-base font-light max-w-md mx-auto mb-8 leading-relaxed">
-          Tworzę unikalny klimat eventów. Bez szablonów, z pełną uwagą na
-          detale.
+          {data.opisHero}
         </p>
 
         <a
@@ -48,7 +50,7 @@ export default function Hero() {
           className="group inline-flex flex-col items-center gap-2 text-gray-400 hover:text-white transition-colors duration-500"
         >
           <span className="text-xs uppercase tracking-widest">
-            Zobacz realizacje
+            {data.tekstPrzycisku}
           </span>
           <FiArrowDown size={16} className="animate-bounce" />
         </a>
