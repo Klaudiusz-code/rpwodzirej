@@ -3,10 +3,12 @@
 import { useState, useEffect, Fragment } from "react";
 import Image from "next/image";
 import { FiMenu, FiX } from "react-icons/fi";
+import { usePathname } from "next/navigation";
 
 export default function Navbar({ settings }: { settings: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -41,6 +43,10 @@ export default function Navbar({ settings }: { settings: any }) {
 
   const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
 
+  const getLinkHref = (anchor: string) => {
+    return pathname === "/" ? `#${anchor}` : `/#${anchor}`;
+  };
+
   return (
     <>
       <nav
@@ -51,11 +57,13 @@ export default function Navbar({ settings }: { settings: any }) {
         }`}
       >
         <div className="max-w-[1300px] mx-auto px-6 lg:px-8 flex items-center justify-between h-full w-full">
-          <a href="#start" className="flex-shrink-0">
+          <a href="/" className="flex-shrink-0">
             <img
               src={logo}
               alt={logoAlt}
-              className="w-[400px] h-[80px] max-w-[55vw] object-contain object-left"
+              // ZMIANA: Na mobile h-[50px] w-[140px] (bardzo małe), na desktopie większe (lg:)
+              className="h-[50px] w-[140px] object-contain object-left
+                         lg:h-[80px] lg:w-[350px]"
             />
           </a>
 
@@ -63,7 +71,7 @@ export default function Navbar({ settings }: { settings: any }) {
             {links.map((item, index) => (
               <Fragment key={item}>
                 <a
-                  href={`#${item.toLowerCase().replace(" ", "-")}`}
+                  href={getLinkHref(item.toLowerCase().replace(" ", "-"))}
                   className="text-[13px] font-medium text-gray-500 hover:text-white transition-colors duration-300 relative"
                 >
                   {item}
@@ -79,7 +87,7 @@ export default function Navbar({ settings }: { settings: any }) {
           </div>
 
           <a
-            href="#kontakt"
+            href={getLinkHref("kontakt")}
             className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
           >
             Zapytaj o termin
@@ -87,7 +95,7 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-white p-2 z-50" // Dodałem z-50 dla pewności
             aria-label="Otwórz menu"
           >
             <FiMenu size={24} />
@@ -111,11 +119,16 @@ export default function Navbar({ settings }: { settings: any }) {
       >
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <a
-            href="#start"
+            href="/"
             onClick={() => setIsMenuOpen(false)}
-            className="w-[180px]"
+            className="flex items-center"
           >
-            <img src={logo} alt={logoAlt} className="w-[220px] h-[150px]" />
+            {/* Logo w menu bocznym - także małe */}
+            <img
+              src={logo}
+              alt={logoAlt}
+              className="h-[50px] w-auto object-contain"
+            />
           </a>
 
           <button
@@ -132,9 +145,9 @@ export default function Navbar({ settings }: { settings: any }) {
             {links.map((item, i) => (
               <a
                 key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                href={getLinkHref(item.toLowerCase().replace(" ", "-"))}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block py-3 text-3xl font-semibold tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
+                className={`block py-2 text-2xl font-medium tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
                   isMenuOpen
                     ? "opacity-100 translate-x-0 text-gray-400 hover:text-white hover:pl-2"
                     : "opacity-0 translate-x-10 text-gray-800"
@@ -159,9 +172,9 @@ export default function Navbar({ settings }: { settings: any }) {
             }}
           >
             <a
-              href="#kontakt"
+              href={getLinkHref("kontakt")}
               onClick={() => setIsMenuOpen(false)}
-              className="block w-full text-center border border-white/20 text-white hover:bg-white hover:text-black text-sm font-medium px-8 py-3.5 rounded-sm transition-all duration-300"
+              className="block w-full text-center border border-white/20 text-white hover:bg-white hover:text-black text-sm font-medium px-6 py-3 rounded-sm transition-all duration-300"
             >
               Zapytaj o termin
             </a>
@@ -179,7 +192,7 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <a
             href={phoneHref}
-            className="text-white text-xl font-light tracking-wider hover:text-gray-400 transition-colors"
+            className="text-white text-lg font-light tracking-wider hover:text-gray-400 transition-colors"
           >
             {phone}
           </a>
