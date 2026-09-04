@@ -36,7 +36,7 @@ export default function Footer({ settings }: { settings: any }) {
             </div>
 
             <p className="text-gray-600 text-sm leading-relaxed">
-              DJ, Wodzirej, Saksofon, Barman. Kraków i cała Polska.
+              DJ, Wodzirej, Saksofon. Kraków i cała Polska.
             </p>
           </div>
 
