@@ -13,7 +13,7 @@ import ScrollWrapper from "@/components/ScrollWrapper";
 
 export const dynamic = "force-dynamic";
 
-const WORDPRESS_API_URL = "http://57.128.226.253/graphql";
+const WORDPRESS_API_URL = "https://rpevents.pl/graphql";
 
 async function getPageData() {
   const query = `
