@@ -88,7 +88,6 @@ export default function Contact({
     const currentUrl = new URL(window.location.href);
     const existing = getMarketingData();
 
-    // Zachowujemy dane pierwszego wejścia na stronę.
     if (existing.landing_page) {
       return;
     }
@@ -432,7 +431,7 @@ export default function Contact({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full group bg-white text-black font-semibold py-5 rounded-sm transition-all duration-300 hover:bg-gray-200 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-widest flex items-center justify-center gap-4 mt-4"
+              className="w-full group bg-white text-black font-semibold py-5 rounded-sm transition-all duration-300 hover:bg-gray-200 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-[11px] md:text-sm uppercase tracking-widest flex items-center justify-center gap-4 mt-4"
             >
               {isSubmitting ? "Wysyłanie..." : "Wyślij zapytanie"}
 

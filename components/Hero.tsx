@@ -33,7 +33,6 @@ export default function Hero({ data }: { data: any }) {
 
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="h-px w-12 bg-white/30"></div>
-          {/* Używamy dangerouslySetInnerHTML, bo w WP możesz mieć encje HTL jak &nbsp; */}
           <p
             className="text-sm sm:text-base font-light tracking-[0.3em] uppercase text-gray-300"
             dangerouslySetInnerHTML={{ __html: data.specjalizacje }}

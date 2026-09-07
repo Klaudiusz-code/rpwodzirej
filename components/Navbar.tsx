@@ -56,7 +56,6 @@ export default function Navbar({ settings }: { settings: any }) {
         }`}
       >
         <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-full w-full relative">
-          {/* LEWA STRONA: Logo + Dane Kontaktowe */}
           <div className="flex items-center gap-6 lg:gap-10">
             <a
               href="/"
@@ -182,6 +181,7 @@ export default function Navbar({ settings }: { settings: any }) {
               </a>
             ))}
           </div>
+          |
         </div>
 
         <div

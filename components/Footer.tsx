@@ -12,12 +12,15 @@ export default function Footer({ settings }: { settings: any }) {
   }, []);
 
   const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
-
   const logoAlt = settings?.logo?.node?.altText || "RP.events";
 
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
-
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
+
+  // Opis z ustawień globalnych, lub tekst zastępczy
+  const footerDesc =
+    settings?.globalDescFooter ||
+    "Profesjonalne usługi DJ, Wodzireja i Saksofonisty na Twoje wydarzenie.";
 
   return (
     <footer className="bg-black border-t border-white/10">
@@ -28,15 +31,16 @@ export default function Footer({ settings }: { settings: any }) {
               <Image
                 src={logo}
                 alt={logoAlt}
-                width={160}
-                height={48}
-                className="h-16 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
+                width={200}
+                height={60}
+                // Zwiększone logo (było h-16, teraz h-20)
+                className="h-20 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
                 priority={false}
               />
             </div>
 
             <p className="text-gray-400 text-sm leading-relaxed">
-              DJ, Wodzirej, Saksofon. Kraków i cała Polska.
+              {footerDesc}
             </p>
           </div>
 

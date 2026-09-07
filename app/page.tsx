@@ -45,7 +45,8 @@ async function getPageData() {
           youtbue {
             linkDoProfiluYoutube
           }
-
+          globalDescFooter
+          linkForGoogleTestimonial
           emailUstawienia
           globalPhone
           lokalizacjaUstawienia
@@ -102,11 +103,6 @@ async function getPageData() {
         sekcjaOpinie {
           nadtytul
           tytul
-          testimonials {
-            imie
-            rodzajWydarzenia
-            trescOpinii
-          }
         }
 
         sekcjaKontakt {
@@ -150,6 +146,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const canonical = seo?.canonicalUrl || "https://rpevents.pl/";
 
+  const siteUrl = "https://rpevents.pl";
+  const socialImageUrl = `${siteUrl}/socialImage.jpg`;
+
   return {
     title,
     description,
@@ -170,12 +169,21 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "RP.events",
       locale: "pl_PL",
       type: "website",
+      images: [
+        {
+          url: socialImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
 
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [socialImageUrl],
     },
   };
 }
@@ -202,7 +210,10 @@ export default async function Home() {
 
         <Scope data={pageData.sekcjaOferta} />
 
-        <SocialProof data={pageData.sekcjaOpinie} />
+        <SocialProof
+          data={pageData.sekcjaOpinie}
+          settings={pageData.ustawieniaGlobalne}
+        />
 
         <Contact
           data={pageData.sekcjaKontakt}
