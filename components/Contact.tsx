@@ -343,7 +343,7 @@ export default function Contact({
                   value={formData.nazwa_lokalu}
                   onChange={handleChange}
                   className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
-                  placeholder="Dwór Testowy"
+                  placeholder="Nazwa Lokalu"
                 />
               </div>
             </div>

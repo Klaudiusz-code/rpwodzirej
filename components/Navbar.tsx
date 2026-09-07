@@ -49,35 +49,40 @@ export default function Navbar({ settings }: { settings: any }) {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-[60] h-20 lg:h-24 transition-all duration-300 ease-in-out border-b border-white/[0.04] ${
+        className={`fixed left-0 right-0 z-[60] h-20 lg:h-28 transition-all duration-300 ease-in-out border-b border-white/[0.04] ${
           isScrolled
             ? "top-0 bg-[#020202]/95 backdrop-blur-xl shadow-lg"
-            : "top-[40px] bg-[#020202]/90 backdrop-blur-xl"
+            : "top-[36px] bg-[#020202]/90 backdrop-blur-xl" // Dostosowane do h-9 TopBar (36px)
         }`}
       >
-        <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-full w-full">
+        <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-full w-full relative">
           {/* LEWA STRONA: Logo + Dane Kontaktowe */}
-          <div className="flex items-center gap-4 lg:gap-6">
-            <a href="/" className="flex-shrink-0 relative z-50">
+          <div className="flex items-center gap-6 lg:gap-10">
+            <a
+              href="/"
+              className="flex-shrink-0 z-50
+                         absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 // Centrowanie na Mobile
+                         lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0" // Reset na Desktop
+            >
               <img
                 src={logo}
                 alt={logoAlt}
-                className="h-[50px] w-auto max-w-[200px] object-contain object-left
-                           lg:h-[80px] lg:max-w-[300px]"
+                className="h-[80px] w-auto object-contain object-left
+                           lg:h-[100px]"
               />
             </a>
 
-            <div className="hidden xl:flex flex-col items-start justify-center gap-1 border-l border-white/10 pl-6 whitespace-nowrap">
+            <div className="hidden lg:flex flex-col items-start justify-center gap-1.5 border-l border-white/10 pl-6 lg:pl-10">
               <a
                 href={phoneHref}
-                className="flex items-center gap-2 text-sm text-white font-light tracking-wide hover:text-gray-300 transition-colors"
+                className="flex items-center gap-2 text-sm lg:text-base text-white font-light tracking-wide hover:text-gray-300 transition-colors"
               >
-                <FiPhone size={14} className="text-gray-500" />
+                <FiPhone size={16} className="text-gray-500" />
                 {phone}
               </a>
 
-              <div className="flex items-center gap-2 text-xs text-gray-400 tracking-wide">
-                <FiMapPin size={12} className="text-gray-500" />
+              <div className="flex items-center gap-2 text-xs lg:text-sm text-gray-400 tracking-wide">
+                <FiMapPin size={14} className="text-gray-500" />
                 {location}
               </div>
             </div>
@@ -177,17 +182,6 @@ export default function Navbar({ settings }: { settings: any }) {
               </a>
             ))}
           </div>
-
-          <div
-            className={`mt-10 transition-all duration-500 ease-out ${
-              isMenuOpen
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}
-            style={{
-              transitionDelay: isMenuOpen ? "500ms" : "0ms",
-            }}
-          ></div>
         </div>
 
         <div

@@ -24,31 +24,39 @@ export default function TopBar({ settings }: { settings: any }) {
         isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      {/* justify-between rozsuwa elementy na boki */}
-      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 py-2.5 flex items-center justify-between h-10 relative">
+      {/* h-9 to 36px - stała wysokość paska */}
+      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-9 relative">
         {/* LEWA STRONA: BANER */}
-        <a
-          href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Dj/Sax Robert Pierz (rp.events)"
-        >
-          <img
-            src="https://www.weselezklasa.pl/banery/Weselezklasa/button280x60szaretlobordowynapis.png"
-            alt="Dj/Sax Robert Pierz (rp.events)"
-            className="h-auto max-h-[36px] w-auto object-contain border-0 hover:opacity-80 transition-opacity"
-          />
-        </a>
+        <div className="flex items-center">
+          <a
+            href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Dj/Sax Robert Pierz (rp.events)"
+          >
+            <img
+              src="https://www.weselezklasa.pl/banery/Weselezklasa/logo128x128szaretlobordowewypelnieni.png"
+              alt="Dj/Sax Robert Pierz (rp.events)"
+              // Zmiany:
+              // 1. my-1 = margines góra/dół (4px) tylko na mobile
+              // 2. max-h-[28px] = mały baner na mobile
+              // 3. sm:my-0 = usunięcie marginesu na tabletach
+              // 4. sm:max-h-[32px] = średni na tabletach
+              // 5. md:max-h-[36px] = pełny na desktopie
+              className="h-auto my-1 max-h-[28px] sm:my-0 sm:max-h-[32px] md:max-h-[36px] w-auto object-contain border-0 hover:opacity-80 transition-opacity"
+            />
+          </a>
+        </div>
 
-        {/* PRAWA STRONA: IKONY SPOŁECZNOŚCIOWE */}
-        <div className="flex items-center gap-4 md:gap-6 border-l border-white/10 pl-4 md:pl-6">
+        {/* PRAWA STRONA: IKONY */}
+        <div className="flex items-center gap-3 md:gap-6 border-l border-white/10 pl-3 md:pl-6">
           <a
             href={instagram || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-white transition-colors duration-300"
           >
-            <SiInstagram size={14} />
+            <SiInstagram size={12} className="md:size-[14px]" />
             <span className="hidden md:inline">Instagram</span>
           </a>
 
@@ -59,7 +67,7 @@ export default function TopBar({ settings }: { settings: any }) {
             aria-label="YouTube"
             className="flex items-center gap-2 hover:text-white transition-colors duration-300"
           >
-            <FiYoutube size={15} />
+            <FiYoutube size={13} className="md:size-[15px]" />
             <span className="hidden md:inline">YouTube</span>
           </a>
         </div>

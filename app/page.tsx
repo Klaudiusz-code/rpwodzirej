@@ -191,14 +191,12 @@ export default async function Home() {
         <Navbar settings={pageData.ustawieniaGlobalne} />
 
         <Hero data={pageData.sekcjaHero} />
-
-        <Showreel
-          data={pageData.sekcjaRealizacje}
-          settings={pageData.ustawieniaGlobalne}
-        />
-
         <AboutMe
           data={pageData.sekcjaOMnie}
+          settings={pageData.ustawieniaGlobalne}
+        />
+        <Showreel
+          data={pageData.sekcjaRealizacje}
           settings={pageData.ustawieniaGlobalne}
         />
 

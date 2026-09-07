@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { FiExternalLink } from "react-icons/fi"; // Ikona do linku zewnętrznego
 
 export default function SocialProof({ data }: { data: any }) {
   const widgetRef = useRef<HTMLDivElement>(null);
@@ -77,6 +78,17 @@ export default function SocialProof({ data }: { data: any }) {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#111111] via-[#111111]/80 to-transparent pointer-events-none z-10"></div>
               </div>
+
+              {/* NOWY PRZYCISK GOOGLE */}
+              <a
+                href="https://www.google.com/search?sca_esv=e359e9a73c7375ff&sxsrf=APpeQnvKv4N19uy1QJKMzpp4mwwC3qdlMA:1788787939429&q=Robert+Pierz+RP.Events+%E2%80%93+DJ/Wodzirej/Saksofon&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_-Ya4FtBKUrY2dGDemgpZwGInoguxEtdEEPu_1bVPlhpzvgxNHM4zWYT3IzeDwTSEDJ3VWk%3D&uds=AJ5uw19Wdv_xJMTV9MotHKepCatK-c0vAmxX-JfGgs-cH4LEc11f6AU5CBZs--CHtxu15L5lUiZGRoXm12vxpn3YTp1DWcWoGlCpWOz4bViP73nOcDXYaNTwRbxSKdNC7AOVgtTrC5E6DFpxuzz6w5j-lHEVngRTLw&sa=X&ved=2ahUKEwjRztStytyWAxX8GhAIHQpIK3IQ3PALegQIIRAE&biw=1920&bih=953&dpr=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-center gap-2 w-full text-[11px] sm:text-xs font-medium tracking-wide text-gray-300 bg-[#111] border border-white/10 rounded-sm py-2.5 transition-all duration-300 hover:bg-white hover:text-black hover:border-white"
+              >
+                <span>Sprawdź więcej opinii w Google</span>
+                <FiExternalLink size={12} />
+              </a>
             </div>
           </div>
         </div>

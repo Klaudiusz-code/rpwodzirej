@@ -66,19 +66,20 @@ export default function AboutMe({
           </div>
 
           <div className="mt-10 pt-8 border-t border-white/10">
-            <div className="flex items-center gap-6">
+            {/* ZMIANA: flex-wrap + responsywne gap-y, żeby się łamało na mobile */}
+            <div className="flex items-center gap-3 flex-wrap sm:gap-6">
               {socials.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 text-gray-500 hover:text-white transition-colors duration-300"
+                  className="group flex items-center gap-2 text-gray-500 hover:text-white transition-colors duration-300 py-1"
                   aria-label={social.name}
                 >
                   <social.icon size={16} />
 
-                  <span className="text-xs tracking-wider uppercase font-poppins font-medium">
+                  <span className="text-[10px] sm:text-xs tracking-wider uppercase font-poppins font-medium whitespace-nowrap">
                     {social.name}
                   </span>
                 </a>
