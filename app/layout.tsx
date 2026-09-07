@@ -4,12 +4,7 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Robert Pierz | DJ, Wodzirej, Saksofon",
-  description:
-    "Minimalistyczna marka osobista. DJ, prowadzenie imprez i saksofon na żywo. Kraków, cała Polska.",
-};
-
+export const metadata: Metadata = { title: "Robert Pierz | DJ, Wodzirej, Saksofon", description: "Minimalistyczna marka osobista. DJ, prowadzenie imprez i saksofon na żywo. Kraków, cała Polska.", verification: { google: "YP9c6maDUAFxToiYNUnSy9C2B9M8sZIrqjrgpiBRxZA", }, };
 export default function RootLayout({
   children,
 }: {
