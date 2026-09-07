@@ -35,7 +35,7 @@ export default function TopBar({ settings }: { settings: any }) {
             title="Dj/Sax Robert Pierz (rp.events)"
           >
             <img
-              src="https://www.weselezklasa.pl/banery/Weselezklasa/logo128x128szaretlobordowewypelnieni.png"
+              src="https://www.weselezklasa.pl/banery/Weselezklasa/logo128x128czarnetlobialewypelnienie.png"
               alt="Dj/Sax Robert Pierz (rp.events)"
               // Zmiany:
               // 1. my-1 = margines góra/dół (4px) tylko na mobile
