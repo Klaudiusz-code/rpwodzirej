@@ -1,6 +1,54 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { FiPhone, FiMail, FiMapPin, FiArrowRight } from "react-icons/fi";
+
+type MarketingData = {
+  utm_source: string;
+  utm_medium: string;
+  utm_campaign: string;
+  utm_content: string;
+  utm_term: string;
+  gclid: string;
+  fbclid: string;
+  referrer: string;
+  landing_page: string;
+};
+
+const STORAGE_KEY = "rpevents_marketing_data";
+
+const emptyMarketingData: MarketingData = {
+  utm_source: "",
+  utm_medium: "",
+  utm_campaign: "",
+  utm_content: "",
+  utm_term: "",
+  gclid: "",
+  fbclid: "",
+  referrer: "",
+  landing_page: "",
+};
+
+function getMarketingData(): MarketingData {
+  if (typeof window === "undefined") {
+    return emptyMarketingData;
+  }
+
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      return {
+        ...emptyMarketingData,
+        ...JSON.parse(saved),
+      };
+    }
+  } catch {
+    // Ignorujemy błąd sessionStorage
+  }
+
+  return emptyMarketingData;
+}
 
 export default function Contact({
   data,
@@ -9,6 +57,21 @@ export default function Contact({
   data: any;
   settings: any;
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const [formData, setFormData] = useState({
+    imie: "",
+    data_wydarzenia: "",
+    telefon: "",
+    email: "",
+    uwagi: "",
+    website: "",
+  });
+
+  const requestIdRef = useRef<string>("");
+
   if (!data) return null;
 
   const phone = settings?.globalPhone;
@@ -17,6 +80,137 @@ export default function Contact({
 
   const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
   const emailHref = `mailto:${email || ""}`;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const currentUrl = new URL(window.location.href);
+    const existing = getMarketingData();
+
+    // Jeżeli dane pierwszej wizyty są już zapisane,
+    // nie nadpisujemy ich kolejnymi wejściami na stronie.
+    if (existing.landing_page) {
+      return;
+    }
+
+    const marketingData: MarketingData = {
+      utm_source: currentUrl.searchParams.get("utm_source") || "",
+      utm_medium: currentUrl.searchParams.get("utm_medium") || "",
+      utm_campaign: currentUrl.searchParams.get("utm_campaign") || "",
+      utm_content: currentUrl.searchParams.get("utm_content") || "",
+      utm_term: currentUrl.searchParams.get("utm_term") || "",
+
+      gclid: currentUrl.searchParams.get("gclid") || "",
+      fbclid: currentUrl.searchParams.get("fbclid") || "",
+
+      referrer: document.referrer || "",
+      landing_page: window.location.href,
+    };
+
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(marketingData));
+    } catch {
+      // Ignorujemy błąd sessionStorage
+    }
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+
+    if (error) {
+      setError("");
+    }
+
+    if (success) {
+      setSuccess(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setError("");
+    setSuccess(false);
+
+    // Jedno ID dla jednego zgłoszenia.
+    // Jeżeli request się nie powiedzie, ponowienie użyje tego samego ID.
+    if (!requestIdRef.current) {
+      requestIdRef.current = crypto.randomUUID();
+    }
+
+    try {
+      const marketingData = getMarketingData();
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          request_id: requestIdRef.current,
+
+          rodzaj_wydarzenia: "Wesele",
+          czy_konkretny_termin: "Tak",
+
+          data_wydarzenia: formData.data_wydarzenia,
+          miejscowosc_wydarzenia: "",
+          nazwa_lokalu: "",
+          liczba_gosci: "",
+
+          imie: formData.imie,
+          email: formData.email,
+          telefon: formData.telefon,
+          uwagi: formData.uwagi,
+
+          // Honeypot
+          website: formData.website,
+
+          // Dane marketingowe
+          ...marketingData,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || result.ok !== true) {
+        throw new Error(result.error || "Nie udało się wysłać formularza.");
+      }
+
+      setSuccess(true);
+
+      setFormData({
+        imie: "",
+        data_wydarzenia: "",
+        telefon: "",
+        email: "",
+        uwagi: "",
+        website: "",
+      });
+
+      // Nowe zgłoszenie dostanie nowe ID.
+      requestIdRef.current = "";
+    } catch (err) {
+      console.error("Formularz kontaktowy:", err);
+
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Wystąpił błąd podczas wysyłania formularza.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -69,7 +263,25 @@ export default function Contact({
         </div>
 
         <div>
-          <form className="space-y-8 pt-2" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-8 pt-2" onSubmit={handleSubmit}>
+            {/* Honeypot - niewidoczne dla normalnego użytkownika */}
+            <div
+              className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
+              aria-hidden="true"
+            >
+              <label htmlFor="website">Website</label>
+
+              <input
+                type="text"
+                id="website"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
@@ -78,7 +290,11 @@ export default function Contact({
 
                 <input
                   type="text"
+                  name="imie"
+                  value={formData.imie}
+                  onChange={handleChange}
                   required
+                  autoComplete="name"
                   className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
                   placeholder="Jan Kowalski"
                 />
@@ -91,23 +307,49 @@ export default function Contact({
 
                 <input
                   type="date"
+                  name="data_wydarzenia"
+                  value={formData.data_wydarzenia}
+                  onChange={handleChange}
                   required
                   className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors [color-scheme:dark]"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
-                Telefon / Email
-              </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div>
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  Telefon
+                </label>
 
-              <input
-                type="text"
-                required
-                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
-                placeholder="500 000 000"
-              />
+                <input
+                  type="tel"
+                  name="telefon"
+                  value={formData.telefon}
+                  onChange={handleChange}
+                  required
+                  autoComplete="tel"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  placeholder="500 000 000"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  E-mail
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  autoComplete="email"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  placeholder="jan@email.pl"
+                />
+              </div>
             </div>
 
             <div>
@@ -116,17 +358,35 @@ export default function Contact({
               </label>
 
               <textarea
+                name="uwagi"
+                value={formData.uwagi}
+                onChange={handleChange}
                 rows={4}
                 className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-600"
                 placeholder="Lokalizacja, ilość gości..."
               ></textarea>
             </div>
 
+            {success && (
+              <div className="text-sm text-gray-300 border border-white/10 px-4 py-4">
+                Dziękujemy. Zapytanie zostało wysłane. Skontaktujemy się z Tobą
+                tak szybko, jak to możliwe.
+              </div>
+            )}
+
+            {error && (
+              <div className="text-sm text-red-400 border border-red-400/20 px-4 py-4">
+                {error}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full group bg-white text-black font-semibold py-5 rounded-sm transition-all duration-300 hover:bg-gray-200 active:scale-[0.99] text-sm uppercase tracking-widest flex items-center justify-center gap-4 mt-4"
+              disabled={isSubmitting}
+              className="w-full group bg-white text-black font-semibold py-5 rounded-sm transition-all duration-300 hover:bg-gray-200 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-widest flex items-center justify-center gap-4 mt-4"
             >
-              Wyślij zapytanie
+              {isSubmitting ? "Wysyłanie..." : "Wyślij zapytanie"}
+
               <FiArrowRight
                 size={16}
                 className="transition-transform group-hover:translate-x-1"

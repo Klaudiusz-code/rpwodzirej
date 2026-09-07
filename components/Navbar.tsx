@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Fragment } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiPhone, FiMapPin } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
 export default function Navbar({ settings }: { settings: any }) {
@@ -35,10 +35,10 @@ export default function Navbar({ settings }: { settings: any }) {
   ];
 
   const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
-
   const logoAlt = settings?.logo?.node?.altText || "RP.events";
 
-  const phone = settings?.numerTelefonuUstawienia;
+  const phone = settings?.numerTelefonuUstawienia || settings?.globalPhone;
+  const location = settings?.lokalizacjaUstawienia;
 
   const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
 
@@ -49,23 +49,41 @@ export default function Navbar({ settings }: { settings: any }) {
   return (
     <>
       <nav
-        className={`fixed left-0 right-0 z-[60] h-20 transition-all duration-300 ease-in-out border-b border-white/[0.04] ${
+        className={`fixed left-0 right-0 z-[60] h-20 lg:h-24 transition-all duration-300 ease-in-out border-b border-white/[0.04] ${
           isScrolled
-            ? "top-0 bg-[#020202]/95 backdrop-blur-xl"
-            : "top-[38px] bg-[#020202]/90 backdrop-blur-xl"
+            ? "top-0 bg-[#020202]/95 backdrop-blur-xl shadow-lg"
+            : "top-[40px] bg-[#020202]/90 backdrop-blur-xl"
         }`}
       >
-        <div className="max-w-[1300px] mx-auto px-6 lg:px-8 flex items-center justify-between h-full w-full">
-          <a href="/" className="flex-shrink-0">
-            <img
-              src={logo}
-              alt={logoAlt}
-              className="h-[50px] w-[140px] object-contain object-left
-                         lg:h-[80px] lg:w-[350px]"
-            />
-          </a>
+        <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-full w-full">
+          {/* LEWA STRONA: Logo + Dane Kontaktowe */}
+          <div className="flex items-center gap-4 lg:gap-6">
+            <a href="/" className="flex-shrink-0 relative z-50">
+              <img
+                src={logo}
+                alt={logoAlt}
+                className="h-[50px] w-auto max-w-[200px] object-contain object-left
+                           lg:h-[80px] lg:max-w-[300px]"
+              />
+            </a>
 
-          <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden xl:flex flex-col items-start justify-center gap-1 border-l border-white/10 pl-6 whitespace-nowrap">
+              <a
+                href={phoneHref}
+                className="flex items-center gap-2 text-sm text-white font-light tracking-wide hover:text-gray-300 transition-colors"
+              >
+                <FiPhone size={14} className="text-gray-500" />
+                {phone}
+              </a>
+
+              <div className="flex items-center gap-2 text-xs text-gray-400 tracking-wide">
+                <FiMapPin size={12} className="text-gray-500" />
+                {location}
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-6 lg:gap-8">
             {links.map((item, index) => (
               <Fragment key={item}>
                 <a
@@ -84,20 +102,22 @@ export default function Navbar({ settings }: { settings: any }) {
             ))}
           </div>
 
-          <a
-            href={getLinkHref("kontakt")}
-            className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
-          >
-            Zapytaj o termin
-          </a>
+          <div className="flex items-center gap-4">
+            <a
+              href={getLinkHref("kontakt")}
+              className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
+            >
+              Zapytaj o termin
+            </a>
 
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            className="lg:hidden text-white p-2 z-50" 
-            aria-label="Otwórz menu"
-          >
-            <FiMenu size={24} />
-          </button>
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className="lg:hidden text-white p-2 z-50"
+              aria-label="Otwórz menu"
+            >
+              <FiMenu size={24} />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -167,15 +187,7 @@ export default function Navbar({ settings }: { settings: any }) {
             style={{
               transitionDelay: isMenuOpen ? "500ms" : "0ms",
             }}
-          >
-            <a
-              href={getLinkHref("kontakt")}
-              onClick={() => setIsMenuOpen(false)}
-              className="block w-full text-center border border-white/20 text-white hover:bg-white hover:text-black text-sm font-medium px-6 py-3 rounded-sm transition-all duration-300"
-            >
-              Zapytaj o termin
-            </a>
-          </div>
+          ></div>
         </div>
 
         <div

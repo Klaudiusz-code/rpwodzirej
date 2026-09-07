@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FiPhone, FiMapPin } from "react-icons/fi";
 import { SiInstagram } from "react-icons/si";
 import { FiYoutube } from "react-icons/fi";
 
@@ -16,8 +15,6 @@ export default function TopBar({ settings }: { settings: any }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const phone = settings?.globalPhone;
-  const location = settings?.lokalizacjaUstawienia;
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
 
@@ -27,62 +24,32 @@ export default function TopBar({ settings }: { settings: any }) {
         isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 py-2.5 flex items-center justify-between relative h-10">
-        <div className="hidden md:flex items-center gap-6">
-          <a
-            href={`tel:${String(phone || "").replace(/\s/g, "")}`}
-            className="flex items-center gap-2 hover:text-white transition-colors duration-300 whitespace-nowrap"
-          >
-            <FiPhone size={12} />
-            {phone}
-          </a>
-
-          <span className="w-px h-3 bg-white/10"></span>
-
-          <span className="flex items-center gap-2 whitespace-nowrap opacity-80">
-            <FiMapPin size={12} />
-            {location}
-          </span>
-        </div>
-
-        {/* LEWA STRONA (MOBILE) */}
+      {/* justify-between rozsuwa elementy na boki */}
+      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 py-2.5 flex items-center justify-between h-10 relative">
+        {/* LEWA STRONA: BANER */}
         <a
-          href={instagram || "#"}
+          href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Instagram"
-          className="md:hidden flex items-center hover:text-white transition-colors duration-300"
+          title="Dj/Sax Robert Pierz (rp.events)"
         >
-          <SiInstagram size={14} />
+          <img
+            src="https://www.weselezklasa.pl/banery/Weselezklasa/button280x60szaretlobordowynapis.png"
+            alt="Dj/Sax Robert Pierz (rp.events)"
+            className="h-auto max-h-[36px] w-auto object-contain border-0 hover:opacity-80 transition-opacity"
+          />
         </a>
 
-        {/* ŚRODEK (BANER) */}
-        <div className="flex-1 flex justify-center items-center px-2">
-          <a
-            href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Dj/Sax Robert Pierz (rp.events)"
-          >
-            <img
-              src="https://www.weselezklasa.pl/banery/Weselezklasa/button280x60szaretlobordowynapis.png"
-              alt="Dj/Sax Robert Pierz (rp.events)"
-              // max-h-[36px] pozwala na lepszą czytelność napisu, nie powiększając paska
-              className="h-auto max-h-[36px] w-auto object-contain border-0 hover:opacity-80 transition-opacity"
-            />
-          </a>
-        </div>
-
-        {/* PRAWA STRONA */}
-        <div className="flex items-center gap-4 md:gap-6 md:ml-auto">
+        {/* PRAWA STRONA: IKONY SPOŁECZNOŚCIOWE */}
+        <div className="flex items-center gap-4 md:gap-6 border-l border-white/10 pl-4 md:pl-6">
           <a
             href={instagram || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 hover:text-white transition-colors duration-300"
+            className="flex items-center gap-2 hover:text-white transition-colors duration-300"
           >
-            <SiInstagram size={13} />
-            <span>Instagram</span>
+            <SiInstagram size={14} />
+            <span className="hidden md:inline">Instagram</span>
           </a>
 
           <a
@@ -92,7 +59,7 @@ export default function TopBar({ settings }: { settings: any }) {
             aria-label="YouTube"
             className="flex items-center gap-2 hover:text-white transition-colors duration-300"
           >
-            <FiYoutube size={14} />
+            <FiYoutube size={15} />
             <span className="hidden md:inline">YouTube</span>
           </a>
         </div>
