@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, Fragment } from "react";
-import Image from "next/image";
 import { FiMenu, FiX } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 
@@ -61,7 +60,6 @@ export default function Navbar({ settings }: { settings: any }) {
             <img
               src={logo}
               alt={logoAlt}
-              // ZMIANA: Na mobile h-[50px] w-[140px] (bardzo małe), na desktopie większe (lg:)
               className="h-[50px] w-[140px] object-contain object-left
                          lg:h-[80px] lg:w-[350px]"
             />
@@ -95,7 +93,7 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="lg:hidden text-white p-2 z-50" // Dodałem z-50 dla pewności
+            className="lg:hidden text-white p-2 z-50" 
             aria-label="Otwórz menu"
           >
             <FiMenu size={24} />

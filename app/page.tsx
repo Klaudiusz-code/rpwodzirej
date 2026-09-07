@@ -47,7 +47,7 @@ async function getPageData() {
           }
 
           emailUstawienia
-          numerTelefonuUstawienia
+          globalPhone
           lokalizacjaUstawienia
         }
 

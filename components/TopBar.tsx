@@ -16,7 +16,7 @@ export default function TopBar({ settings }: { settings: any }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const phone = settings?.numerTelefonuUstawienia;
+  const phone = settings?.globalPhone;
   const location = settings?.lokalizacjaUstawienia;
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
@@ -27,7 +27,7 @@ export default function TopBar({ settings }: { settings: any }) {
         isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      <div className="max-w-[1300px] mx-auto px-6 lg:px-8 py-2.5 flex justify-center md:justify-between items-center">
+      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 py-2.5 flex items-center justify-between">
         <div className="hidden md:flex items-center gap-8">
           <a
             href={`tel:${String(phone || "").replace(/\s/g, "")}`}
@@ -45,24 +45,52 @@ export default function TopBar({ settings }: { settings: any }) {
           </span>
         </div>
 
+        <a
+          href={instagram || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          className="md:hidden flex items-center text-gray-400 hover:text-white transition-colors duration-300"
+        >
+          <SiInstagram size={15} />
+        </a>
+
+        <a
+          href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Dj/Sax Robert Pierz (rp.events)"
+          className="absolute left-1/2 -translate-x-1/2 flex items-center"
+        >
+          <img
+            src="https://www.weselezklasa.pl/banery/Weselezklasa/button230x50bordowetlo.png"
+            alt="Dj/Sax Robert Pierz (rp.events)"
+            width={230}
+            height={50}
+            className="w-[125px] sm:w-[150px] md:w-[230px] h-auto object-contain"
+          />
+        </a>
+
         <div className="flex items-center gap-5 md:gap-6 md:ml-auto font-semibold">
           <a
             href={instagram || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300"
+            className="hidden md:flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300"
           >
             <SiInstagram size={14} />
-            <span className="hidden md:inline">Instagram</span>
+            <span>Instagram</span>
           </a>
 
           <a
             href={youtube || "#"}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="YouTube"
             className="flex items-center gap-2 text-gray-700 hover:text-white transition-colors duration-300"
           >
-            <FiYoutube size={14} />
+            <FiYoutube size={15} />
+
             <span className="hidden md:inline">YouTube</span>
           </a>
         </div>

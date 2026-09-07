@@ -11,10 +11,8 @@ export default function Showreel({
 }) {
   if (!data) return null;
 
-  // Pierwszy element = główny Showreel
   const mainItem = data.realizacjeItemy?.[0];
 
-  // Kolejne maksymalnie 2 zdjęcia
   const sideItems = data.realizacjeItemy?.slice(1, 3);
 
   const instagramLink = settings?.instagram?.linkDoProfiluInstagram;

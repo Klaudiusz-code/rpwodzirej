@@ -11,7 +11,7 @@ export default function Contact({
 }) {
   if (!data) return null;
 
-  const phone = settings?.numerTelefonuUstawienia;
+  const phone = settings?.globalPhone;
   const email = settings?.emailUstawienia;
   const location = settings?.lokalizacjaUstawienia;
 
