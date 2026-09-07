@@ -35,14 +35,14 @@ export default function Footer({ settings }: { settings: any }) {
               />
             </div>
 
-            <p className="text-gray-600 text-sm leading-relaxed">
+            <p className="text-gray-400 text-sm leading-relaxed">
               DJ, Wodzirej, Saksofon. Kraków i cała Polska.
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-16 gap-y-6">
             <div>
-              <h4 className="text-[10px] font-bold text-gray-700 uppercase tracking-[0.2em] mb-5">
+              <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-5">
                 Nawigacja
               </h4>
 
@@ -52,7 +52,7 @@ export default function Footer({ settings }: { settings: any }) {
                     <li key={link}>
                       <a
                         href={`#${link.toLowerCase().replace(" ", "-")}`}
-                        className="text-sm text-gray-600 hover:text-white transition-colors duration-300"
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300"
                       >
                         {link}
                       </a>
@@ -63,7 +63,7 @@ export default function Footer({ settings }: { settings: any }) {
             </div>
 
             <div>
-              <h4 className="text-[10px] font-bold text-gray-700 uppercase tracking-[0.2em] mb-5">
+              <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-5">
                 Social
               </h4>
 
@@ -87,7 +87,7 @@ export default function Footer({ settings }: { settings: any }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-gray-600 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
                       >
                         <link.icon size={12} /> {link.name}
                       </a>
@@ -100,7 +100,7 @@ export default function Footer({ settings }: { settings: any }) {
 
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-5">
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-400">
               © {year} RP.events. Wszystkie prawa zastrzeżone.
             </p>
 
@@ -108,7 +108,7 @@ export default function Footer({ settings }: { settings: any }) {
 
             <a
               href="/polityka-prywatnosci"
-              className="text-[10px] uppercase tracking-widest text-gray-600 hover:text-gray-300 transition-colors duration-300"
+              className="text-[10px] uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors duration-300"
             >
               Polityka prywatności
             </a>
@@ -118,7 +118,7 @@ export default function Footer({ settings }: { settings: any }) {
             href="https://klaudiuszdev.pl"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors duration-300"
+            className="group flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors duration-300"
           >
             <span className="text-[10px] uppercase tracking-widest">
               Realizacja:

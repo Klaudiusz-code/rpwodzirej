@@ -27,7 +27,7 @@ export default function Contact({
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         <div className="flex flex-col justify-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
             {data.nadtytul}
           </p>
 
@@ -53,14 +53,14 @@ export default function Contact({
 
             <a
               href={emailHref}
-              className="group flex items-center gap-4 text-gray-500 hover:text-white transition-colors duration-300 break-all"
+              className="group flex items-center gap-4 text-gray-400 hover:text-white transition-colors duration-300 break-all"
             >
               <FiMail size={16} className="opacity-50 mt-0.5" />
 
               <span className="text-sm font-light">{email}</span>
             </a>
 
-            <div className="flex items-center gap-4 text-gray-600">
+            <div className="flex items-center gap-4 text-gray-400">
               <FiMapPin size={16} className="opacity-50" />
 
               <span className="text-sm font-light">{location}</span>
@@ -72,20 +72,20 @@ export default function Contact({
           <form className="space-y-8 pt-2" onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
-                <label className="block text-[10px] text-gray-600 uppercase tracking-widest mb-3 font-medium">
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                   Imię i nazwisko
                 </label>
 
                 <input
                   type="text"
                   required
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-800"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
                   placeholder="Jan Kowalski"
                 />
               </div>
 
               <div>
-                <label className="block text-[10px] text-gray-600 uppercase tracking-widest mb-3 font-medium">
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                   Data imprezy
                 </label>
 
@@ -98,26 +98,26 @@ export default function Contact({
             </div>
 
             <div>
-              <label className="block text-[10px] text-gray-600 uppercase tracking-widest mb-3 font-medium">
+              <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                 Telefon / Email
               </label>
 
               <input
                 type="text"
                 required
-                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-800"
+                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
                 placeholder="500 000 000"
               />
             </div>
 
             <div>
-              <label className="block text-[10px] text-gray-600 uppercase tracking-widest mb-3 font-medium">
+              <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                 Krótko o imprezie
               </label>
 
               <textarea
                 rows={4}
-                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-800"
+                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-600"
                 placeholder="Lokalizacja, ilość gości..."
               ></textarea>
             </div>

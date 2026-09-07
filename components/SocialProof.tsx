@@ -33,7 +33,7 @@ export default function SocialProof({ data }: { data: any }) {
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 md:mb-20 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6 font-poppins">
             {data.nadtytul}
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.15] tracking-tight">
@@ -49,7 +49,7 @@ export default function SocialProof({ data }: { data: any }) {
                   &ldquo;
                 </span>
                 <div className="relative z-10 flex flex-col">
-                  <p className="text-gray-400 text-sm leading-[1.85] font-poppins mb-6">
+                  <p className="text-gray-300 text-sm leading-[1.85] font-poppins mb-6">
                     {item.trescOpinii}
                   </p>
                   <div>
@@ -57,7 +57,7 @@ export default function SocialProof({ data }: { data: any }) {
                     <p className="text-white text-sm font-semibold font-poppins tracking-wide">
                       {item.imie}
                     </p>
-                    <p className="text-gray-600 text-xs tracking-wider uppercase font-poppins mt-1">
+                    <p className="text-gray-400 text-xs tracking-wider uppercase font-poppins mt-1">
                       {item.rodzajWydarzenia}
                     </p>
                   </div>

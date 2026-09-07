@@ -70,7 +70,7 @@ export default function Navbar({ settings }: { settings: any }) {
               <Fragment key={item}>
                 <a
                   href={getLinkHref(item.toLowerCase().replace(" ", "-"))}
-                  className="text-[13px] font-medium text-gray-500 hover:text-white transition-colors duration-300 relative"
+                  className="text-[13px] font-medium text-gray-400 hover:text-white transition-colors duration-300 relative"
                 >
                   {item}
 
@@ -121,7 +121,6 @@ export default function Navbar({ settings }: { settings: any }) {
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center"
           >
-            {/* Logo w menu bocznym - także małe */}
             <img
               src={logo}
               alt={logoAlt}
@@ -131,7 +130,7 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <button
             onClick={() => setIsMenuOpen(false)}
-            className="text-gray-500 hover:text-white transition-colors p-1"
+            className="text-gray-400 hover:text-white transition-colors p-1"
             aria-label="Zamknij menu"
           >
             <FiX size={24} />
@@ -148,7 +147,7 @@ export default function Navbar({ settings }: { settings: any }) {
                 className={`block py-2 text-2xl font-medium tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
                   isMenuOpen
                     ? "opacity-100 translate-x-0 text-gray-400 hover:text-white hover:pl-2"
-                    : "opacity-0 translate-x-10 text-gray-800"
+                    : "opacity-0 translate-x-10 text-gray-500"
                 }`}
                 style={{
                   transitionDelay: isMenuOpen ? `${150 + i * 50}ms` : "0ms",
@@ -184,7 +183,7 @@ export default function Navbar({ settings }: { settings: any }) {
             isMenuOpen ? "opacity-100" : "opacity-0"
           }`}
         >
-          <p className="text-[10px] text-gray-600 mb-2 uppercase tracking-[0.25em]">
+          <p className="text-[10px] text-gray-400 mb-2 uppercase tracking-[0.25em]">
             Zadzwoń
           </p>
 

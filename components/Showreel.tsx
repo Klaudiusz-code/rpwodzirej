@@ -25,7 +25,7 @@ export default function Showreel({
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
               {data.nadtytulSekcji}
             </p>
 
@@ -41,7 +41,7 @@ export default function Showreel({
             href={instagramLink || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-white text-sm uppercase tracking-widest transition-colors duration-300"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white text-sm uppercase tracking-widest transition-colors duration-300"
           >
             <FiInstagram size={14} /> {data.instagram}
           </a>

@@ -48,7 +48,7 @@ export default function AboutMe({
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-6 font-poppins">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6 font-poppins">
             {data.nadtytul}
           </p>
 
@@ -59,7 +59,7 @@ export default function AboutMe({
             }}
           />
 
-          <div className="space-y-5 text-gray-400 text-[0.95rem] leading-[1.85] font-poppins">
+          <div className="space-y-5 text-gray-300 text-[0.95rem] leading-[1.85] font-poppins">
             <p>{data.akapit1}</p>
             <p>{data.akapit2}</p>
             <p>{data.akapit3}</p>
@@ -73,7 +73,7 @@ export default function AboutMe({
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 text-gray-600 hover:text-white transition-colors duration-300"
+                  className="group flex items-center gap-2.5 text-gray-500 hover:text-white transition-colors duration-300"
                   aria-label={social.name}
                 >
                   <social.icon size={16} />
