@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
+
 const CRM_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbxoto4iyfOKz4TnfHKYkzmDEmOjbHMFQRCnnHtF9EwQsC3aebHdW1hQUL3lZVxX1jJxGQ/exec";
 
-// Maksymalnie 3 wysłania z jednego IP w ciągu 10 minut.
 const RATE_LIMIT = 3;
 const RATE_WINDOW = 10 * 60 * 1000;
 
@@ -42,7 +42,6 @@ export async function POST(request: Request) {
   try {
     const ip = getClientIp(request);
 
-    // Rate limiting
     if (isRateLimited(ip)) {
       return NextResponse.json(
         {
@@ -56,13 +55,10 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    // Honeypot.
-    // Normalny użytkownik tego pola nie widzi.
+    // Honeypot — bot wypełnił ukryte pole.
     if (body.website) {
       console.warn("Honeypot wykrył prawdopodobnego bota:", ip);
 
-      // Udajemy poprawne wysłanie, żeby bot nie wiedział,
-      // że został wykryty.
       return NextResponse.json({
         ok: true,
         request_id: crypto.randomUUID(),
@@ -87,30 +83,32 @@ export async function POST(request: Request) {
 
     const crmData = {
       api_token: apiToken,
-      request_id: requestId,
+      request_id: String(requestId),
 
-      rodzaj_wydarzenia: body.rodzaj_wydarzenia || "Wesele",
-      czy_konkretny_termin: body.czy_konkretny_termin || "Tak",
-      data_wydarzenia: body.data_wydarzenia || "",
-      miejscowosc_wydarzenia: body.miejscowosc_wydarzenia || "",
-      nazwa_lokalu: body.nazwa_lokalu || "",
-      liczba_gosci: body.liczba_gosci || "",
+      rodzaj_wydarzenia: String(body.rodzaj_wydarzenia || "Wesele"),
 
-      imie: body.imie || "",
-      email: body.email || "",
-      telefon: body.telefon || "",
-      uwagi: body.uwagi || "",
+      czy_konkretny_termin: String(body.czy_konkretny_termin || "Tak"),
 
-      utm_source: body.utm_source || "",
-      utm_medium: body.utm_medium || "",
-      utm_campaign: body.utm_campaign || "",
-      utm_content: body.utm_content || "",
-      utm_term: body.utm_term || "",
+      data_wydarzenia: String(body.data_wydarzenia || ""),
+      miejscowosc_wydarzenia: String(body.miejscowosc_wydarzenia || ""),
+      nazwa_lokalu: String(body.nazwa_lokalu || ""),
+      liczba_gosci: String(body.liczba_gosci || ""),
 
-      gclid: body.gclid || "",
-      fbclid: body.fbclid || "",
-      referrer: body.referrer || "",
-      landing_page: body.landing_page || "",
+      imie: String(body.imie || ""),
+      email: String(body.email || ""),
+      telefon: String(body.telefon || ""),
+      uwagi: String(body.uwagi || ""),
+
+      utm_source: String(body.utm_source || ""),
+      utm_medium: String(body.utm_medium || ""),
+      utm_campaign: String(body.utm_campaign || ""),
+      utm_content: String(body.utm_content || ""),
+      utm_term: String(body.utm_term || ""),
+
+      gclid: String(body.gclid || ""),
+      fbclid: String(body.fbclid || ""),
+      referrer: String(body.referrer || ""),
+      landing_page: String(body.landing_page || ""),
     };
 
     const response = await fetch(CRM_ENDPOINT, {

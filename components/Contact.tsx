@@ -64,6 +64,9 @@ export default function Contact({
   const [formData, setFormData] = useState({
     imie: "",
     data_wydarzenia: "",
+    miejscowosc_wydarzenia: "",
+    nazwa_lokalu: "",
+    liczba_gosci: "",
     telefon: "",
     email: "",
     uwagi: "",
@@ -71,8 +74,6 @@ export default function Contact({
   });
 
   const requestIdRef = useRef<string>("");
-
-  if (!data) return null;
 
   const phone = settings?.globalPhone;
   const email = settings?.emailUstawienia;
@@ -87,8 +88,7 @@ export default function Contact({
     const currentUrl = new URL(window.location.href);
     const existing = getMarketingData();
 
-    // Jeżeli dane pierwszej wizyty są już zapisane,
-    // nie nadpisujemy ich kolejnymi wejściami na stronie.
+    // Zachowujemy dane pierwszego wejścia na stronę.
     if (existing.landing_page) {
       return;
     }
@@ -110,7 +110,6 @@ export default function Contact({
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(marketingData));
     } catch {
-      // Ignorujemy błąd sessionStorage
     }
   }, []);
 
@@ -142,8 +141,6 @@ export default function Contact({
     setError("");
     setSuccess(false);
 
-    // Jedno ID dla jednego zgłoszenia.
-    // Jeżeli request się nie powiedzie, ponowienie użyje tego samego ID.
     if (!requestIdRef.current) {
       requestIdRef.current = crypto.randomUUID();
     }
@@ -162,20 +159,18 @@ export default function Contact({
           rodzaj_wydarzenia: "Wesele",
           czy_konkretny_termin: "Tak",
 
-          data_wydarzenia: formData.data_wydarzenia,
-          miejscowosc_wydarzenia: "",
-          nazwa_lokalu: "",
-          liczba_gosci: "",
+          data_wydarzenia: String(formData.data_wydarzenia),
+          miejscowosc_wydarzenia: String(formData.miejscowosc_wydarzenia),
+          nazwa_lokalu: String(formData.nazwa_lokalu),
+          liczba_gosci: String(formData.liczba_gosci),
 
-          imie: formData.imie,
-          email: formData.email,
-          telefon: formData.telefon,
-          uwagi: formData.uwagi,
+          imie: String(formData.imie),
+          email: String(formData.email),
+          telefon: String(formData.telefon),
+          uwagi: String(formData.uwagi),
 
-          // Honeypot
           website: formData.website,
 
-          // Dane marketingowe
           ...marketingData,
         }),
       });
@@ -191,13 +186,15 @@ export default function Contact({
       setFormData({
         imie: "",
         data_wydarzenia: "",
+        miejscowosc_wydarzenia: "",
+        nazwa_lokalu: "",
+        liczba_gosci: "",
         telefon: "",
         email: "",
         uwagi: "",
         website: "",
       });
 
-      // Nowe zgłoszenie dostanie nowe ID.
       requestIdRef.current = "";
     } catch (err) {
       console.error("Formularz kontaktowy:", err);
@@ -211,6 +208,8 @@ export default function Contact({
       setIsSubmitting(false);
     }
   };
+
+  if (!data) return null;
 
   return (
     <section
@@ -264,7 +263,7 @@ export default function Contact({
 
         <div>
           <form className="space-y-8 pt-2" onSubmit={handleSubmit}>
-            {/* Honeypot - niewidoczne dla normalnego użytkownika */}
+            {/* Honeypot - niewidoczne dla użytkownika */}
             <div
               className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
               aria-hidden="true"
@@ -319,6 +318,56 @@ export default function Contact({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  Miejscowość wydarzenia
+                </label>
+
+                <input
+                  type="text"
+                  name="miejscowosc_wydarzenia"
+                  value={formData.miejscowosc_wydarzenia}
+                  onChange={handleChange}
+                  autoComplete="address-level2"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  placeholder="Kraków"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  Lokal / sala
+                </label>
+
+                <input
+                  type="text"
+                  name="nazwa_lokalu"
+                  value={formData.nazwa_lokalu}
+                  onChange={handleChange}
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  placeholder="Dwór Testowy"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div>
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  Przybliżona liczba gości
+                </label>
+
+                <input
+                  type="number"
+                  name="liczba_gosci"
+                  value={formData.liczba_gosci}
+                  onChange={handleChange}
+                  min="1"
+                  inputMode="numeric"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  placeholder="120"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                   Telefon
                 </label>
 
@@ -330,26 +379,26 @@ export default function Contact({
                   required
                   autoComplete="tel"
                   className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
-                  placeholder="500 000 000"
+                  placeholder="+48 500 600 700"
                 />
               </div>
+            </div>
 
-              <div>
-                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
-                  E-mail
-                </label>
+            <div>
+              <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                E-mail
+              </label>
 
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  autoComplete="email"
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
-                  placeholder="jan@email.pl"
-                />
-              </div>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                autoComplete="email"
+                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                placeholder="jan@email.pl"
+              />
             </div>
 
             <div>
@@ -363,7 +412,7 @@ export default function Contact({
                 onChange={handleChange}
                 rows={4}
                 className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-600"
-                placeholder="Lokalizacja, ilość gości..."
+                placeholder="Dodatkowe informacje..."
               ></textarea>
             </div>
 
