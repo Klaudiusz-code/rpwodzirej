@@ -66,7 +66,7 @@ export default function Navbar({ settings }: { settings: any }) {
               <img
                 src={logo}
                 alt={logoAlt}
-                className="h-[80px] w-auto object-contain object-left
+                className="h-[80px] w-auto max-w-[300px] object-contain object-left
                            lg:h-[100px]"
               />
             </a>
@@ -181,7 +181,6 @@ export default function Navbar({ settings }: { settings: any }) {
               </a>
             ))}
           </div>
-          |
         </div>
 
         <div

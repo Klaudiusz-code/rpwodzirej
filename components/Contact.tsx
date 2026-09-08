@@ -44,8 +44,7 @@ function getMarketingData(): MarketingData {
         ...JSON.parse(saved),
       };
     }
-  } catch {
-  }
+  } catch {}
 
   return emptyMarketingData;
 }
@@ -234,14 +233,14 @@ export default function Contact({
           </p>
 
           {/* ZDJĘCIE Z GRAPHQL */}
-          <div className="relative w-full max-w-[280px] mb-12 mx-auto sm:mx-0">
+          <div className="relative w-full mb-12 mx-auto sm:mx-0">
             <Image
               src={contactImageUrl}
               alt="Kontakt"
-              width={400}
-              height={400}
+              width={800}
+              height={300}
               unoptimized={true}
-              className="rounded-sm border border-white/10 object-cover w-full h-auto shadow-2xl"
+              className="rounded-sm border border-white/10 object-cover w-full max-h-[500px] shadow-2xl"
             />
           </div>
 
