@@ -3,6 +3,8 @@
 import { useState, useEffect, Fragment } from "react";
 import { FiMenu, FiX, FiPhone, FiMapPin } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+// 👇 FIX: Add this import
+import Image from "next/image";
 
 export default function Navbar({ settings }: { settings: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +36,6 @@ export default function Navbar({ settings }: { settings: any }) {
     "Kontakt",
   ];
 
-  
   const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
   const logoAlt = settings?.logo?.node?.altText || "RP.events";
 
@@ -64,13 +65,12 @@ export default function Navbar({ settings }: { settings: any }) {
                          absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
                          lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0"
             >
-            
-              <img
+              <Image
                 src={logoSrc}
                 alt={logoAlt}
                 width={180}
                 height={60}
-                className="w-[85px] md:w-[100px] lg:w-[150px] h-auto object-contain"
+                className="w-[85px] md:w-[9px] lg:w-[120px] h-auto object-contain"
               />
             </a>
 
@@ -148,10 +148,12 @@ export default function Navbar({ settings }: { settings: any }) {
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center"
           >
-            {/* Również używamy logoSrc w menu mobilnym */}
-            <img
+            {/* Updated to use Next.js Image component for consistency */}
+            <Image
               src={logoSrc}
               alt={logoAlt}
+              width={100}
+              height={50}
               className="h-[50px] w-auto object-contain"
             />
           </a>
