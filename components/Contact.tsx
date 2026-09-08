@@ -4,6 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { FiPhone, FiMail, FiMapPin, FiArrowRight } from "react-icons/fi";
 import Image from "next/image";
 
+declare global {
+  interface Window {
+    gtag?: (
+      command: "config" | "event",
+      target: string,
+      params?: Record<string, any>,
+    ) => void;
+  }
+}
 type MarketingData = {
   utm_source: string;
   utm_medium: string;
@@ -182,7 +191,11 @@ export default function Contact({
       }
 
       setSuccess(true);
-
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", "generate_lead", {
+          currency: "PLN",
+        });
+      }
       setFormData({
         imie: "",
         data_wydarzenia: "",

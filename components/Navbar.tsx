@@ -34,9 +34,7 @@ export default function Navbar({ settings }: { settings: any }) {
     "Kontakt",
   ];
 
-  // LOGIKA LOGA:
-  // 1. Bierze z settings (GraphQL)
-  // 2. Jeśli brak, bierze domyślne "/rp-wektor.png"
+  
   const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
   const logoAlt = settings?.logo?.node?.altText || "RP.events";
 
