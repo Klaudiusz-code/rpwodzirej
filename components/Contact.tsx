@@ -232,7 +232,6 @@ export default function Contact({
             {data.contactDescription}
           </p>
 
-          {/* ZDJĘCIE Z GRAPHQL */}
           <div className="relative w-full mb-12 mx-auto sm:mx-0">
             <Image
               src={contactImageUrl}
@@ -240,11 +239,10 @@ export default function Contact({
               width={800}
               height={300}
               unoptimized={true}
-              className="rounded-sm border border-white/10 object-cover w-full max-h-[500px] shadow-2xl"
+              className="rounded-sm border border-white/10 object-cover w-full max-h-[530px] shadow-2xl"
             />
           </div>
 
-          {/* DANE KONTAKTOWE NA DOLE */}
           <div className="space-y-6 border-t border-white/10 pt-8">
             <a
               href={phoneHref}
@@ -276,7 +274,6 @@ export default function Contact({
 
         <div>
           <form className="space-y-8 pt-2" onSubmit={handleSubmit}>
-            {/* Honeypot - niewidoczne dla użytkownika */}
             <div
               className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
               aria-hidden="true"
