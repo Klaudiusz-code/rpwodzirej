@@ -191,10 +191,16 @@ export default function Contact({
       }
 
       setSuccess(true);
+      console.log("GA4 gtag:", window.gtag);
+
       if (typeof window !== "undefined" && window.gtag) {
+        console.log("WYSYŁAM generate_lead");
+
         window.gtag("event", "generate_lead", {
           currency: "PLN",
         });
+      } else {
+        console.error("BRAK window.gtag - generate_lead NIE został wysłany");
       }
       setFormData({
         imie: "",
