@@ -66,8 +66,8 @@ export default function Navbar({ settings }: { settings: any }) {
               <img
                 src={logo}
                 alt={logoAlt}
-                className="h-[80px] w-auto max-w-[300px] object-contain object-left
-                           lg:h-[100px]"
+                className="w-auto max-w-[300px] max-h-[80px] object-contain object-left
+           lg:max-h-[100px]"
               />
             </a>
 
