@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { FiPhone, FiMail, FiMapPin, FiArrowRight } from "react-icons/fi";
+import Image from "next/image";
 
 type MarketingData = {
   utm_source: string;
@@ -44,7 +45,6 @@ function getMarketingData(): MarketingData {
       };
     }
   } catch {
-    // Ignorujemy błąd sessionStorage
   }
 
   return emptyMarketingData;
@@ -79,6 +79,9 @@ export default function Contact({
   const email = settings?.emailUstawienia;
   const location = settings?.lokalizacjaUstawienia;
 
+  const contactImageUrl =
+    data?.contactImage?.node?.sourceUrl || "/socialImage.jpg";
+
   const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
   const emailHref = `mailto:${email || ""}`;
 
@@ -108,8 +111,7 @@ export default function Contact({
 
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(marketingData));
-    } catch {
-    }
+    } catch {}
   }, []);
 
   const handleChange = (
@@ -227,10 +229,23 @@ export default function Contact({
             {data.tytul}
           </h2>
 
-          <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-16 max-w-md">
+          <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
             {data.contactDescription}
           </p>
 
+          {/* ZDJĘCIE Z GRAPHQL */}
+          <div className="relative w-full max-w-[280px] mb-12 mx-auto sm:mx-0">
+            <Image
+              src={contactImageUrl}
+              alt="Kontakt"
+              width={400}
+              height={400}
+              unoptimized={true}
+              className="rounded-sm border border-white/10 object-cover w-full h-auto shadow-2xl"
+            />
+          </div>
+
+          {/* DANE KONTAKTOWE NA DOLE */}
           <div className="space-y-6 border-t border-white/10 pt-8">
             <a
               href={phoneHref}
@@ -293,7 +308,7 @@ export default function Contact({
                   onChange={handleChange}
                   required
                   autoComplete="name"
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                   placeholder="Jan Kowalski"
                 />
               </div>
@@ -309,7 +324,7 @@ export default function Contact({
                   value={formData.data_wydarzenia}
                   onChange={handleChange}
                   required
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors [color-scheme:dark]"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors [color-scheme:dark] placeholder:text-gray-400"
                 />
               </div>
             </div>
@@ -326,7 +341,7 @@ export default function Contact({
                   value={formData.miejscowosc_wydarzenia}
                   onChange={handleChange}
                   autoComplete="address-level2"
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                   placeholder="Kraków"
                 />
               </div>
@@ -341,7 +356,7 @@ export default function Contact({
                   name="nazwa_lokalu"
                   value={formData.nazwa_lokalu}
                   onChange={handleChange}
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                   placeholder="Nazwa Lokalu"
                 />
               </div>
@@ -360,7 +375,7 @@ export default function Contact({
                   onChange={handleChange}
                   min="1"
                   inputMode="numeric"
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                   placeholder="120"
                 />
               </div>
@@ -377,7 +392,7 @@ export default function Contact({
                   onChange={handleChange}
                   required
                   autoComplete="tel"
-                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                  className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                   placeholder="+48 500 600 700"
                 />
               </div>
@@ -395,7 +410,7 @@ export default function Contact({
                 onChange={handleChange}
                 required
                 autoComplete="email"
-                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-600"
+                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors placeholder:text-gray-400"
                 placeholder="jan@email.pl"
               />
             </div>
@@ -410,7 +425,7 @@ export default function Contact({
                 value={formData.uwagi}
                 onChange={handleChange}
                 rows={4}
-                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-600"
+                className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-400"
                 placeholder="Dodatkowe informacje..."
               ></textarea>
             </div>

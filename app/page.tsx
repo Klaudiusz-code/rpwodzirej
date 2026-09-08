@@ -109,6 +109,9 @@ async function getPageData() {
           nadtytul
           tytul
           contactDescription
+           contactImage{
+            node{sourceUrl}
+          }
         }
       }
     }

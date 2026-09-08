@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { SiInstagram } from "react-icons/si";
-import { FiYoutube } from "react-icons/fi";
+import { FiYoutube, FiFacebook } from "react-icons/fi";
 
 export default function TopBar({ settings }: { settings: any }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +17,7 @@ export default function TopBar({ settings }: { settings: any }) {
 
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
+  const facebook = settings?.facebook?.linkDoProfiluFacebook;
 
   return (
     <div
@@ -24,51 +25,54 @@ export default function TopBar({ settings }: { settings: any }) {
         isScrolled ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
-      {/* h-9 to 36px - stała wysokość paska */}
-      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-9 relative">
-        {/* LEWA STRONA: BANER */}
-        <div className="flex items-center">
+      <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-end h-9 relative">
+        <div className="flex items-center gap-3 md:gap-6">
+          <div className="flex items-center gap-3 md:gap-6">
+            <a
+              href={instagram || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors duration-300"
+            >
+              <SiInstagram size={12} className="md:size-[14px]" />
+              <span className="hidden md:inline">Instagram</span>
+            </a>
+
+            <a
+              href={youtube || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors duration-300"
+            >
+              <FiYoutube size={13} className="md:size-[15px]" />
+              <span className="hidden md:inline">YouTube</span>
+            </a>
+
+            <a
+              href={facebook || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors duration-300"
+            >
+              <FiFacebook size={13} className="md:size-[15px]" />
+              <span className="hidden md:inline">Facebook</span>
+            </a>
+          </div>
+
+          <div className="w-px h-3 bg-white/10"></div>
+
           <a
             href="https://www.weselezklasa.pl/ogloszenia-weselne/rpevents-djsax-robert-pierz,60030/"
             target="_blank"
             rel="noopener noreferrer"
             title="Dj/Sax Robert Pierz (rp.events)"
+            className="flex items-center"
           >
             <img
               src="https://www.weselezklasa.pl/banery/Weselezklasa/logo128x128czarnetlobialewypelnienie.png"
               alt="Dj/Sax Robert Pierz (rp.events)"
-              // Zmiany:
-              // 1. my-1 = margines góra/dół (4px) tylko na mobile
-              // 2. max-h-[28px] = mały baner na mobile
-              // 3. sm:my-0 = usunięcie marginesu na tabletach
-              // 4. sm:max-h-[32px] = średni na tabletach
-              // 5. md:max-h-[36px] = pełny na desktopie
               className="h-auto my-1 max-h-[28px] sm:my-0 sm:max-h-[32px] md:max-h-[36px] w-auto object-contain border-0 hover:opacity-80 transition-opacity"
             />
-          </a>
-        </div>
-
-        {/* PRAWA STRONA: IKONY */}
-        <div className="flex items-center gap-3 md:gap-6 border-l border-white/10 pl-3 md:pl-6">
-          <a
-            href={instagram || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 hover:text-white transition-colors duration-300"
-          >
-            <SiInstagram size={12} className="md:size-[14px]" />
-            <span className="hidden md:inline">Instagram</span>
-          </a>
-
-          <a
-            href={youtube || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="YouTube"
-            className="flex items-center gap-2 hover:text-white transition-colors duration-300"
-          >
-            <FiYoutube size={13} className="md:size-[15px]" />
-            <span className="hidden md:inline">YouTube</span>
           </a>
         </div>
       </div>
