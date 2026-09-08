@@ -64,10 +64,11 @@ export default function Navbar({ settings }: { settings: any }) {
                          lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0" // Reset na Desktop
             >
               <img
-                src={logo}
-                alt={logoAlt}
-                className="w-auto max-w-[300px] max-h-[80px] object-contain object-left
-           lg:max-h-[100px]"
+                src="/rp-wektor.png"
+                alt="RP.events"
+                width={250}
+                height={80}
+                className="w-[250px] h-[60px] md:h-[80px] object-contain"
               />
             </a>
 

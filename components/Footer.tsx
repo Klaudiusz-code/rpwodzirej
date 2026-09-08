@@ -17,7 +17,6 @@ export default function Footer({ settings }: { settings: any }) {
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
 
-  // Opis z ustawień globalnych, lub tekst zastępczy
   const footerDesc =
     settings?.globalDescFooter ||
     "Profesjonalne usługi DJ, Wodzireja i Saksofonisty na Twoje wydarzenie.";
@@ -26,16 +25,15 @@ export default function Footer({ settings }: { settings: any }) {
     <footer className="bg-black border-t border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-20">
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 mb-16">
-          <div className="md:max-w-xs">
-            <div className="mb-6">
+          <div className="md:max-w-xs text-left">
+            <div className="mb-6 flex justify-start items-start">
               <Image
-                src={logo}
-                alt={logoAlt}
-                width={200}
-                height={60}
-                // Zwiększone logo (było h-16, teraz h-20)
-                className="h-20 w-auto opacity-70 hover:opacity-100 transition-opacity duration-300"
-                priority={false}
+                src="/rp-wektor.png"
+                alt="RP.events"
+                width={500}
+                height={160}
+                priority
+                className="w-[170px] sm:w-[150px] md:w-[200px] h-auto object-contain object-left"
               />
             </div>
 
@@ -93,7 +91,8 @@ export default function Footer({ settings }: { settings: any }) {
                         rel="noopener noreferrer"
                         className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
                       >
-                        <link.icon size={12} /> {link.name}
+                        <link.icon size={12} />
+                        {link.name}
                       </a>
                     </li>
                   ))}
