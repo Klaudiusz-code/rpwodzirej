@@ -34,7 +34,10 @@ export default function Navbar({ settings }: { settings: any }) {
     "Kontakt",
   ];
 
-  const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
+  // LOGIKA LOGA:
+  // 1. Bierze z settings (GraphQL)
+  // 2. Jeśli brak, bierze domyślne "/rp-wektor.png"
+  const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
   const logoAlt = settings?.logo?.node?.altText || "RP.events";
 
   const phone = settings?.numerTelefonuUstawienia || settings?.globalPhone;
@@ -52,7 +55,7 @@ export default function Navbar({ settings }: { settings: any }) {
         className={`fixed left-0 right-0 z-[60] h-20 lg:h-28 transition-all duration-300 ease-in-out border-b border-white/[0.04] ${
           isScrolled
             ? "top-0 bg-[#020202]/95 backdrop-blur-xl shadow-lg"
-            : "top-[36px] bg-[#020202]/90 backdrop-blur-xl" // Dostosowane do h-9 TopBar (36px)
+            : "top-[36px] bg-[#020202]/90 backdrop-blur-xl"
         }`}
       >
         <div className="max-w-[1300px] mx-auto px-4 lg:px-8 flex items-center justify-between h-full w-full relative">
@@ -60,15 +63,16 @@ export default function Navbar({ settings }: { settings: any }) {
             <a
               href="/"
               className="flex-shrink-0 z-50
-                         absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 // Centrowanie na Mobile
-                         lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0" // Reset na Desktop
+                         absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+                         lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0"
             >
+            
               <img
-                src="/rp-wektor.png"
-                alt="RP.events"
-                width={250}
-                height={80}
-                className="w-[250px] h-[60px] md:h-[80px] object-contain"
+                src={logoSrc}
+                alt={logoAlt}
+                width={180}
+                height={60}
+                className="w-[85px] md:w-[100px] lg:w-[150px] h-auto object-contain"
               />
             </a>
 
@@ -146,8 +150,9 @@ export default function Navbar({ settings }: { settings: any }) {
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center"
           >
+            {/* Również używamy logoSrc w menu mobilnym */}
             <img
-              src={logo}
+              src={logoSrc}
               alt={logoAlt}
               className="h-[50px] w-auto object-contain"
             />
