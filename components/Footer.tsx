@@ -1,7 +1,9 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FiInstagram, FiYoutube } from "react-icons/fi";
 
 export default function Footer({ settings }: { settings: any }) {
@@ -11,9 +13,6 @@ export default function Footer({ settings }: { settings: any }) {
     setYear(new Date().getFullYear().toString());
   }, []);
 
-  const logo = settings?.logo?.node?.sourceUrl || "/rp-wektor.svg";
-  const logoAlt = settings?.logo?.node?.altText || "RP.events";
-
   const instagram = settings?.instagram?.linkDoProfiluInstagram;
   const youtube = settings?.youtbue?.linkDoProfiluYoutube;
 
@@ -22,50 +21,63 @@ export default function Footer({ settings }: { settings: any }) {
     "Profesjonalne usługi DJ, Wodzireja i Saksofonisty na Twoje wydarzenie.";
 
   return (
-    <footer className="bg-black border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 mb-16">
-          <div className="md:max-w-xs text-left">
-            <div className="mb-6 flex justify-start items-start">
+    <footer className="border-t border-white/10 bg-black">
+      <div className="mx-auto max-w-6xl px-6 py-14 sm:py-16 md:py-20">
+        <div className="mb-14 flex flex-col gap-12 md:mb-16 md:flex-row md:items-start md:justify-between">
+          <div className="text-left md:max-w-xs">
+            <div className="mb-6 flex items-start justify-start">
               <Image
                 src="/rp-wektor.png"
                 alt="RP.events"
                 width={500}
                 height={160}
                 priority
-                className="w-[170px] sm:w-[150px] md:w-[200px] h-auto object-contain object-left"
+                className="h-auto w-[170px] object-contain object-left sm:w-[180px] md:w-[200px]"
               />
             </div>
 
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed text-gray-400">
               {footerDesc}
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-16 gap-y-6">
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3 sm:gap-x-16">
             <div>
-              <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-5">
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
                 Nawigacja
               </h4>
 
               <ul className="space-y-3">
-                {["Start", "Realizacje", "O mnie", "Oferta", "Kontakt"].map(
-                  (link) => (
-                    <li key={link}>
-                      <a
-                        href={`#${link.toLowerCase().replace(" ", "-")}`}
-                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ),
-                )}
+                {[
+                  { name: "Start", href: "/#start" },
+                  { name: "Realizacje", href: "/#realizacje" },
+                  { name: "O mnie", href: "/#o-mnie" },
+                  { name: "Oferta", href: "/#oferta" },
+                  { name: "Kontakt", href: "/#kontakt" },
+                ].map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-gray-400 transition-colors duration-300 hover:text-white"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+
+                <li className="pt-1">
+                  <Link
+                    href="/terminy"
+                    className="inline-flex items-center text-sm font-medium text-white transition-colors duration-300 hover:text-gray-300"
+                  >
+                    Wolne terminy
+                  </Link>
+                </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-5">
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
                 Social
               </h4>
 
@@ -89,7 +101,7 @@ export default function Footer({ settings }: { settings: any }) {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
+                        className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-300 hover:text-white"
                       >
                         <link.icon size={12} />
                         {link.name}
@@ -101,27 +113,27 @@ export default function Footer({ settings }: { settings: any }) {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-center gap-5">
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-5">
+        <div className="flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-8 sm:flex-row">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
             <p className="text-xs text-gray-400">
               © {year} RP.events. Wszystkie prawa zastrzeżone.
             </p>
 
-            <span className="hidden sm:block w-px h-3 bg-white/10" />
+            <span className="hidden h-3 w-px bg-white/10 sm:block" />
 
-            <a
+            <Link
               href="/polityka-prywatnosci"
-              className="text-[10px] uppercase tracking-widest text-gray-400 hover:text-gray-300 transition-colors duration-300"
+              className="text-[10px] uppercase tracking-widest text-gray-400 transition-colors duration-300 hover:text-gray-300"
             >
               Polityka prywatności
-            </a>
+            </Link>
           </div>
 
           <a
             href="https://klaudiuszdev.pl"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors duration-300"
+            className="group flex items-center gap-2 text-gray-400 transition-colors duration-300 hover:text-gray-300"
           >
             <span className="text-[10px] uppercase tracking-widest">
               Realizacja:
@@ -130,7 +142,7 @@ export default function Footer({ settings }: { settings: any }) {
             <img
               src="https://klaudiuszdev.pl/hello.svg"
               alt="Klaudiusz Dev"
-              className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity"
+              className="h-4 w-4 opacity-70 transition-opacity group-hover:opacity-100"
             />
 
             <span className="text-[11px] font-bold tracking-wide">
