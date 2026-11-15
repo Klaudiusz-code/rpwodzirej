@@ -10,6 +10,7 @@ import SocialProof from "@/components/SocialProof";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollWrapper from "@/components/ScrollWrapper";
+import AvailableDates from "@/components/AvailableDates";
 
 export const dynamic = "force-dynamic";
 
@@ -217,6 +218,7 @@ export default async function Home() {
           data={pageData.sekcjaOpinie}
           settings={pageData.ustawieniaGlobalne}
         />
+        <AvailableDates />
 
         <Contact
           data={pageData.sekcjaKontakt}

@@ -114,7 +114,7 @@ export default function Navbar({ settings }: { settings: any }) {
               href="/terminy"
               className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
             >
-              Zapytaj o termin
+              Sprawdź termin
             </a>
 
             <button
