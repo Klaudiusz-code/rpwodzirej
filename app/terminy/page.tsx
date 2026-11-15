@@ -79,21 +79,19 @@ export default async function TerminyPage() {
       <TopBar settings={settings} />
       <Navbar settings={settings} />
 
-      <main className="min-h-screen overflow-x-clip bg-[#050505] px-0 pb-10 pt-4 text-white sm:px-5 sm:pb-14 sm:pt-7 lg:pt-9">
+      <main className="min-h-screen overflow-x-clip bg-[#050505] px-0 pb-12 pt-8 text-white sm:px-5 sm:pb-16 sm:pt-10">
         <div className="mx-auto w-full max-w-[760px]">
-          <div className="mx-auto w-full max-w-[560px] px-4 pb-4 text-center sm:px-0 sm:pb-6">
-            <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/40 sm:text-xs">
-              RP.Events
-            </p>
+          <header className="mx-auto w-full max-w-[560px] mt-24 lg:mt-34 px-4 pb-5 text-center sm:px-0 sm:pb-7">
+            
 
             <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-              Wolne terminy
+              Zapytaj o ofertę
             </h1>
 
             <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-white/50 sm:mt-3 sm:text-sm sm:leading-6">
               Sprawdź dostępność i wybierz termin swojego wydarzenia.
             </p>
-          </div>
+          </header>
 
           <section
             aria-label="Kalendarz wolnych terminów"
@@ -103,7 +101,7 @@ export default async function TerminyPage() {
               src={TERMINY_URL}
               title="Kalendarz wolnych terminów RP.Events"
               loading="eager"
-              className="block h-[1150px] min-h-[1000px] w-full border-0 bg-[#0b0b0b] sm:h-[1150px] lg:h-[1150px]"
+              className="block h-[1150px] min-h-[1000px] w-full border-0 bg-[#0b0b0b] sm:h-[1150px]"
               allow="clipboard-write"
             />
           </section>
