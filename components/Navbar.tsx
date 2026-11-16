@@ -28,12 +28,12 @@ export default function Navbar({ settings }: { settings: any }) {
   }, [isMenuOpen]);
 
   const links = [
-    "Start",
-    "Realizacje",
-    "O mnie",
-    "Oferta",
-    "Opinie",
-    "Kontakt",
+    { label: "Start", anchor: "start" },
+    { label: "Realizacje", anchor: "realizacje" },
+    { label: "O mnie", anchor: "o-mnie" },
+    { label: "Oferta", anchor: "oferta" },
+    { label: "Opinie", anchor: "opinie" },
+    { label: "Wolne terminy", anchor: "wolne-terminy" },
   ];
 
   const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
@@ -92,12 +92,12 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <div className="hidden lg:flex items-center gap-6 lg:gap-8">
             {links.map((item, index) => (
-              <Fragment key={item}>
+              <Fragment key={item.label}>
                 <a
-                  href={getLinkHref(item.toLowerCase().replace(" ", "-"))}
+                  href={getLinkHref(item.anchor)}
                   className="text-[13px] font-medium text-gray-400 hover:text-white transition-colors duration-300 relative"
                 >
-                  {item}
+                  {item.label}
 
                   <span className="absolute bottom-[-2px] left-0 w-0 h-[1px] bg-white transition-all duration-300 hover:w-full"></span>
                 </a>
@@ -111,10 +111,10 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <div className="flex items-center gap-4">
             <a
-              href="/terminy"
+              href={getLinkHref("kontakt")}
               className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
             >
-              Sprawdź termin
+              Otrzymaj ofertę
             </a>
 
             <button
@@ -171,8 +171,8 @@ export default function Navbar({ settings }: { settings: any }) {
           <div className="space-y-1">
             {links.map((item, i) => (
               <a
-                key={item}
-                href={getLinkHref(item.toLowerCase().replace(" ", "-"))}
+                key={item.label}
+                href={getLinkHref(item.anchor)}
                 onClick={() => setIsMenuOpen(false)}
                 className={`block py-2 text-2xl font-medium tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
                   isMenuOpen
@@ -183,10 +183,26 @@ export default function Navbar({ settings }: { settings: any }) {
                   transitionDelay: isMenuOpen ? `${150 + i * 50}ms` : "0ms",
                 }}
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </div>
+          <a
+            href={getLinkHref("kontakt")}
+            onClick={() => setIsMenuOpen(false)}
+            className={`block py-2 text-2xl font-medium tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
+              isMenuOpen
+                ? "opacity-100 translate-x-0 text-amber-200 hover:text-white hover:pl-2"
+                : "opacity-0 translate-x-10 text-gray-500"
+            }`}
+            style={{
+              transitionDelay: isMenuOpen
+                ? `${150 + links.length * 50}ms`
+                : "0ms",
+            }}
+          >
+            Otrzymaj ofertę
+          </a>
         </div>
 
         <div
