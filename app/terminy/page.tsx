@@ -1,14 +1,30 @@
 
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+import KalendarzTerminow, {
+  type DaneTerminow,
+} from "./KalendarzTerminow";
+
 const WORDPRESS_API_URL = "https://rpevents.pl/graphql";
 
-const TERMINY_URL =
-  "https://script.google.com/macros/s/AKfycbxE3Ozk3FbGTPoTTsdVihIM9gpSSlSoeTLjzpTsRNDPSbaXqarBnRFV6J9mTsiGKnza_Q/exec?z=www";
+const TERMINY_JSON_URL =
+  "https://script.google.com/macros/s/AKfycbxE3Ozk3FbGTPoTTsdVihIM9gpSSlSoeTLjzpTsRNDPSbaXqarBnRFV6J9mTsiGKnza_Q/exec?format=json";
+
+const FORM_URL_ZAPASOWY =
+  "https://forms.gle/LzwCb3HYEmgc8jpa6";
+
+const montserrat = Montserrat({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-montserrat",
+});
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Wolne terminy | RP.Events – DJ, wodzirej, saksofonista",
@@ -71,40 +87,73 @@ async function getGlobalSettings() {
   return data?.page?.ustawieniaGlobalne;
 }
 
+async function pobierzTerminy(): Promise<DaneTerminow | null> {
+  try {
+    const res = await fetch(TERMINY_JSON_URL, {
+      next: {
+        revalidate: 300,
+      },
+      redirect: "follow",
+    });
+
+    if (!res.ok) {
+      return null;
+    }
+
+    const dane: unknown = await res.json();
+
+    if (!dane || typeof dane !== "object") {
+      return null;
+    }
+
+    const kalendarz = dane as Partial<DaneTerminow>;
+
+    if (
+      kalendarz.blad ||
+      typeof kalendarz.od !== "string" ||
+      typeof kalendarz.do !== "string" ||
+      !Array.isArray(kalendarz.zajete) ||
+      !kalendarz.zajete.every((data) => typeof data === "string") ||
+      (kalendarz.wstepne !== undefined &&
+        (!Array.isArray(kalendarz.wstepne) ||
+          !kalendarz.wstepne.every((data) => typeof data === "string")))
+    ) {
+      return null;
+    }
+
+    return {
+      blad: false,
+      od: kalendarz.od,
+      do: kalendarz.do,
+      zajete: kalendarz.zajete,
+      wstepne: kalendarz.wstepne ?? [],
+      formUrl: kalendarz.formUrl,
+    };
+  } catch (error) {
+    console.error("Nie udało się pobrać terminów:", error);
+    return null;
+  }
+}
+
 export default async function TerminyPage() {
-  const settings = await getGlobalSettings();
+  const [settings, dane] = await Promise.all([
+    getGlobalSettings(),
+    pobierzTerminy(),
+  ]);
 
   return (
     <>
       <TopBar settings={settings} />
       <Navbar settings={settings} />
 
-      <main className="min-h-screen overflow-x-clip bg-[#050505] px-0 pb-12 pt-8 text-white sm:px-5 sm:pb-16 sm:pt-10">
-        <div className="mx-auto w-full max-w-[760px]">
-          <header className="mx-auto w-full max-w-[560px] mt-24 lg:mt-34 px-4 pb-5 text-center sm:px-0 sm:pb-7">
-            
-
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-              Zapytaj o ofertę
-            </h1>
-
-            <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-white/50 sm:mt-3 sm:text-sm sm:leading-6">
-              Sprawdź dostępność i wybierz termin swojego wydarzenia.
-            </p>
-          </header>
-
-          <section
-            aria-label="Kalendarz wolnych terminów"
-            className="mx-auto w-full max-w-[560px] overflow-hidden sm:rounded-sm"
-          >
-            <iframe
-              src={TERMINY_URL}
-              title="Kalendarz wolnych terminów RP.Events"
-              loading="eager"
-              className="block h-[1150px] min-h-[1000px] w-full border-0 bg-[#0b0b0b] sm:h-[1150px]"
-              allow="clipboard-write"
-            />
-          </section>
+      <main
+        className={`${montserrat.className} min-h-screen overflow-x-clip bg-[#050505] px-0 pb-12 pt-8 text-white sm:px-5 sm:pb-16 sm:pt-10`}
+      >
+        <div className="mx-auto mt-24 w-full max-w-[760px] lg:mt-34">
+          <KalendarzTerminow
+            dane={dane}
+            formUrlZapasowy={FORM_URL_ZAPASOWY}
+          />
         </div>
       </main>
 
