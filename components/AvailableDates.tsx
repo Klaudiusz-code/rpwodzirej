@@ -1,8 +1,62 @@
 
-const TERMINY_URL =
-  "https://script.google.com/macros/s/AKfycbxE3Ozk3FbGTPoTTsdVihIM9gpSSlSoeTLjzpTsRNDPSbaXqarBnRFV6J9mTsiGKnza_Q/exec?z=www";
+import KalendarzTerminow, {
+  type DaneTerminow,
+} from "@/app/terminy/KalendarzTerminow";
 
-export default function AvailableDates() {
+const TERMINY_JSON_URL =
+  "https://script.google.com/macros/s/AKfycbxE3Ozk3FbGTPoTTsdVihIM9gpSSlSoeTLjzpTsRNDPSbaXqarBnRFV6J9mTsiGKnza_Q/exec?format=json";
+
+const FORM_URL_ZAPASOWY =
+  "https://forms.gle/LzwCb3HYEmgc8jpa6";
+
+async function pobierzTerminy(): Promise<DaneTerminow | null> {
+  try {
+    const res = await fetch(TERMINY_JSON_URL, {
+      next: { revalidate: 300 },
+      redirect: "follow",
+    });
+
+    if (!res.ok) return null;
+
+    const dane: unknown = await res.json();
+
+    if (!dane || typeof dane !== "object") return null;
+
+    const kalendarz = dane as Partial<DaneTerminow>;
+
+    if (
+      kalendarz.blad ||
+      typeof kalendarz.od !== "string" ||
+      typeof kalendarz.do !== "string" ||
+      !Array.isArray(kalendarz.zajete) ||
+      !kalendarz.zajete.every((data) => typeof data === "string") ||
+      (kalendarz.wstepne !== undefined &&
+        (!Array.isArray(kalendarz.wstepne) ||
+          !kalendarz.wstepne.every((data) => typeof data === "string")))
+    ) {
+      return null;
+    }
+
+    return {
+      blad: false,
+      od: kalendarz.od,
+      do: kalendarz.do,
+      zajete: kalendarz.zajete,
+      wstepne: kalendarz.wstepne ?? [],
+      formUrl:
+        typeof kalendarz.formUrl === "string"
+          ? kalendarz.formUrl
+          : undefined,
+    };
+  } catch (error) {
+    console.error("Nie udało się pobrać terminów:", error);
+    return null;
+  }
+}
+
+export default async function AvailableDates() {
+  const dane = await pobierzTerminy();
+
   return (
     <section
       id="wolne-terminy"
@@ -27,15 +81,10 @@ export default function AvailableDates() {
           </p>
         </div>
 
-        <div className="mx-auto w-full max-w-[560px] overflow-hidden sm:rounded-sm">
-          <iframe
-            src={TERMINY_URL}
-            title="Kalendarz wolnych terminów RP.Events"
-            loading="lazy"
-            className="block h-[1150px] min-h-[1000px] w-full border-0 bg-[#0b0b0b]"
-            allow="clipboard-write"
-          />
-        </div>
+        <KalendarzTerminow
+          dane={dane}
+          formUrlZapasowy={FORM_URL_ZAPASOWY}
+        />
       </div>
     </section>
   );
