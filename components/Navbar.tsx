@@ -1,9 +1,9 @@
+
 "use client";
 
 import { useState, useEffect, Fragment } from "react";
 import { FiMenu, FiX, FiPhone, FiMapPin } from "react-icons/fi";
 import { usePathname } from "next/navigation";
-// 👇 FIX: Add this import
 import Image from "next/image";
 
 export default function Navbar({ settings }: { settings: any }) {
@@ -44,7 +44,10 @@ export default function Navbar({ settings }: { settings: any }) {
 
   const phoneHref = `tel:${String(phone || "").replace(/\s/g, "")}`;
 
+  // Linki do podstron i kotwice
   const getLinkHref = (anchor: string) => {
+    if (anchor.startsWith("/")) return anchor;
+
     return pathname === "/" ? `#${anchor}` : `/#${anchor}`;
   };
 
@@ -62,7 +65,7 @@ export default function Navbar({ settings }: { settings: any }) {
             <a
               href="/"
               className="flex-shrink-0 z-50
-                         absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+                         absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
                          lg:static lg:transform-none lg:translate-x-0 lg:translate-y-0"
             >
               <Image
@@ -70,7 +73,7 @@ export default function Navbar({ settings }: { settings: any }) {
                 alt={logoAlt}
                 width={180}
                 height={60}
-                className="w-[85px] md:w-[9px] lg:w-[120px] h-auto object-contain"
+                className="w-[85px] md:w-[100px] lg:w-[120px] h-auto object-contain"
               />
             </a>
 
@@ -148,7 +151,6 @@ export default function Navbar({ settings }: { settings: any }) {
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center"
           >
-            {/* Updated to use Next.js Image component for consistency */}
             <Image
               src={logoSrc}
               alt={logoAlt}
@@ -187,6 +189,7 @@ export default function Navbar({ settings }: { settings: any }) {
               </a>
             ))}
           </div>
+
           <a
             href={getLinkHref("kontakt")}
             onClick={() => setIsMenuOpen(false)}
