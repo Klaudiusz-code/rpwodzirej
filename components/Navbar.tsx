@@ -33,7 +33,7 @@ export default function Navbar({ settings }: { settings: any }) {
     { label: "O mnie", anchor: "o-mnie" },
     { label: "Oferta", anchor: "oferta" },
     { label: "Opinie", anchor: "opinie" },
-    { label: "Wolne terminy", anchor: "wolne-terminy" },
+    { label: "Wolne terminy", anchor: "/terminy" },
   ];
 
   const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
@@ -111,7 +111,7 @@ export default function Navbar({ settings }: { settings: any }) {
 
           <div className="flex items-center gap-4">
             <a
-              href="/terminy"
+              href={getLinkHref("kontakt")}
               className="hidden lg:inline-flex items-center gap-2 border border-white/20 text-white hover:bg-white hover:text-black text-[13px] font-medium px-6 py-2.5 rounded-sm transition-all duration-300 flex-shrink-0 tracking-wide"
             >
               Otrzymaj ofertę
@@ -188,7 +188,7 @@ export default function Navbar({ settings }: { settings: any }) {
             ))}
           </div>
           <a
-            href="/terminy"
+            href={getLinkHref("kontakt")}
             onClick={() => setIsMenuOpen(false)}
             className={`block py-2 text-2xl font-medium tracking-tight border-b border-white/[0.04] transition-all duration-500 ease-out ${
               isMenuOpen
