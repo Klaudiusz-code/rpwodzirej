@@ -20,6 +20,35 @@ export default function Footer({ settings }: { settings: any }) {
     settings?.globalDescFooter ||
     "Profesjonalne usługi DJ, Wodzireja i Saksofonisty na Twoje wydarzenie.";
 
+  const navigationLinks = [
+    { name: "Start", href: "/#start" },
+    { name: "Realizacje", href: "/#realizacje" },
+    { name: "O mnie", href: "/#o-mnie" },
+    { name: "Oferta", href: "/#oferta" },
+    { name: "Kontakt", href: "/#kontakt" },
+    { name: "Wolne terminy", href: "/terminy" },
+  ];
+
+  const legalLinks = [
+    { name: "Regulamin", href: "/regulamin.html" },
+    { name: "Polityka prywatności", href: "/polityka-prywatnosci.html" },
+    { name: "Polityka cookies", href: "/polityka-cookies.html" },
+    { name: "Płatności", href: "/platnosci.html" },
+  ];
+
+  const socialLinks = [
+    {
+      name: "Instagram",
+      href: instagram,
+      icon: FiInstagram,
+    },
+    {
+      name: "YouTube",
+      href: youtube,
+      icon: FiYoutube,
+    },
+  ].filter((link) => link.href);
+
   return (
     <footer className="border-t border-white/10 bg-black">
       <div className="mx-auto max-w-6xl px-6 py-14 sm:py-16 md:py-20">
@@ -48,13 +77,7 @@ export default function Footer({ settings }: { settings: any }) {
               </h4>
 
               <ul className="space-y-3">
-                {[
-                  { name: "Start", href: "/#start" },
-                  { name: "Realizacje", href: "/#realizacje" },
-                  { name: "O mnie", href: "/#o-mnie" },
-                  { name: "Oferta", href: "/#oferta" },
-                  { name: "Kontakt", href: "/#kontakt" },
-                ].map((link) => (
+                {navigationLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
@@ -64,15 +87,25 @@ export default function Footer({ settings }: { settings: any }) {
                     </Link>
                   </li>
                 ))}
+              </ul>
+            </div>
 
-                <li className="pt-1">
-                  <Link
-                    href="/terminy"
-                    className="inline-flex items-center text-sm font-medium text-white transition-colors duration-300 hover:text-gray-300"
-                  >
-                    Wolne terminy
-                  </Link>
-                </li>
+            <div>
+              <h4 className="mb-5 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+                Dokumenty
+              </h4>
+
+              <ul className="space-y-3">
+                {legalLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-gray-400 transition-colors duration-300 hover:text-white"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -82,52 +115,28 @@ export default function Footer({ settings }: { settings: any }) {
               </h4>
 
               <ul className="space-y-3">
-                {[
-                  {
-                    name: "Instagram",
-                    href: instagram,
-                    icon: FiInstagram,
-                  },
-                  {
-                    name: "YouTube",
-                    href: youtube,
-                    icon: FiYoutube,
-                  },
-                ]
-                  .filter((link) => link.href)
-                  .map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-300 hover:text-white"
-                      >
-                        <link.icon size={12} />
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
+                {socialLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors duration-300 hover:text-white"
+                    >
+                      <link.icon size={12} />
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-8 sm:flex-row">
-          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-5">
-            <p className="text-xs text-gray-400">
-              © {year} RP.events. Wszystkie prawa zastrzeżone.
-            </p>
-
-            <span className="hidden h-3 w-px bg-white/10 sm:block" />
-
-            <Link
-              href="/polityka-prywatnosci"
-              className="text-[10px] uppercase tracking-widest text-gray-400 transition-colors duration-300 hover:text-gray-300"
-            >
-              Polityka prywatności
-            </Link>
-          </div>
+          <p className="text-center text-xs text-gray-400 sm:text-left">
+            © {year} RP.events. Wszystkie prawa zastrzeżone.
+          </p>
 
           <a
             href="https://klaudiuszdev.pl"

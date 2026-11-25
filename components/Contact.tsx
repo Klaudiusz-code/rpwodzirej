@@ -13,6 +13,7 @@ declare global {
     ) => void;
   }
 }
+
 type MarketingData = {
   utm_source: string;
   utm_medium: string;
@@ -68,6 +69,7 @@ export default function Contact({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const [formData, setFormData] = useState({
     imie: "",
@@ -146,6 +148,11 @@ export default function Contact({
 
     if (isSubmitting) return;
 
+    if (!consent) {
+      setError("Zaznacz wymaganą zgodę, aby wysłać zapytanie.");
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
     setSuccess(false);
@@ -191,17 +198,14 @@ export default function Contact({
       }
 
       setSuccess(true);
-      console.log("GA4 gtag:", window.gtag);
+      setConsent(false);
 
       if (typeof window !== "undefined" && window.gtag) {
-        console.log("WYSYŁAM generate_lead");
-
         window.gtag("event", "generate_lead", {
           currency: "PLN",
         });
-      } else {
-        console.error("BRAK window.gtag - generate_lead NIE został wysłany");
       }
+
       setFormData({
         imie: "",
         data_wydarzenia: "",
@@ -443,6 +447,38 @@ export default function Contact({
                 className="w-full bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-white focus:outline-none focus:border-white/50 transition-colors resize-none placeholder:text-gray-400"
                 placeholder="Dodatkowe informacje..."
               ></textarea>
+            </div>
+
+            <div className="flex items-start gap-3 pt-2">
+              <input
+                type="checkbox"
+                id="contact-consent"
+                name="zgoda"
+                checked={consent}
+                onChange={(e) => {
+                  setConsent(e.target.checked);
+                  if (error) setError("");
+                }}
+                required
+                className="mt-1 h-4 w-4 shrink-0 cursor-pointer accent-white"
+              />
+
+              <label
+                htmlFor="contact-consent"
+                className="text-xs leading-relaxed text-gray-400 cursor-pointer"
+              >
+                Zapoznałem/am się z{" "}
+                <a
+                  href="/polityka-prywatnosci.html"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-white underline underline-offset-2 hover:text-gray-300"
+                >
+                  Polityką prywatności
+                </a>{" "}
+                i wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi
+                na zapytanie i przygotowania oferty.
+              </label>
             </div>
 
             {success && (
