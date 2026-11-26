@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { FiPhone, FiMail, FiMapPin, FiArrowRight } from "react-icons/fi";
+import { FiPhone, FiMail, FiMapPin, FiArrowRight, FiChevronDown, FiCheck } from "react-icons/fi";
+
 import Image from "next/image";
 
 declare global {
@@ -73,6 +74,7 @@ export default function Contact({
 
   const [formData, setFormData] = useState({
     imie: "",
+    rodzaj_wydarzenia: "Wesele",
     data_wydarzenia: "",
     miejscowosc_wydarzenia: "",
     nazwa_lokalu: "",
@@ -82,7 +84,16 @@ export default function Contact({
     uwagi: "",
     website: "",
   });
+  const [eventDropdownOpen, setEventDropdownOpen] = useState(false);
 
+  const eventTypes = [
+    "Wesele",
+    "Poprawiny",
+    "18-stka",
+    "Urodziny / jubileusz",
+    "Impreza firmowa",
+    "Inne",
+  ];
   const requestIdRef = useRef<string>("");
 
   const phone = settings?.globalPhone;
@@ -111,10 +122,8 @@ export default function Contact({
       utm_campaign: currentUrl.searchParams.get("utm_campaign") || "",
       utm_content: currentUrl.searchParams.get("utm_content") || "",
       utm_term: currentUrl.searchParams.get("utm_term") || "",
-
       gclid: currentUrl.searchParams.get("gclid") || "",
       fbclid: currentUrl.searchParams.get("fbclid") || "",
-
       referrer: document.referrer || "",
       landing_page: window.location.href,
     };
@@ -125,7 +134,9 @@ export default function Contact({
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
 
@@ -172,7 +183,9 @@ export default function Contact({
         body: JSON.stringify({
           request_id: requestIdRef.current,
 
-          rodzaj_wydarzenia: "Wesele",
+          // Rodzaj wydarzenia wybrany przez użytkownika
+          rodzaj_wydarzenia: String(formData.rodzaj_wydarzenia),
+
           czy_konkretny_termin: "Tak",
 
           data_wydarzenia: String(formData.data_wydarzenia),
@@ -208,6 +221,7 @@ export default function Contact({
 
       setFormData({
         imie: "",
+        rodzaj_wydarzenia: "Wesele",
         data_wydarzenia: "",
         miejscowosc_wydarzenia: "",
         nazwa_lokalu: "",
@@ -272,7 +286,6 @@ export default function Contact({
               className="group flex items-center gap-4 text-gray-400 hover:text-white transition-colors duration-300"
             >
               <FiPhone size={16} className="opacity-50" />
-
               <span className="text-lg sm:text-xl font-light tracking-wide">
                 {phone}
               </span>
@@ -283,13 +296,11 @@ export default function Contact({
               className="group flex items-center gap-4 text-gray-400 hover:text-white transition-colors duration-300 break-all"
             >
               <FiMail size={16} className="opacity-50 mt-0.5" />
-
               <span className="text-sm font-light">{email}</span>
             </a>
 
             <div className="flex items-center gap-4 text-gray-400">
               <FiMapPin size={16} className="opacity-50" />
-
               <span className="text-sm font-light">{location}</span>
             </div>
           </div>
@@ -302,7 +313,6 @@ export default function Contact({
               aria-hidden="true"
             >
               <label htmlFor="website">Website</label>
-
               <input
                 type="text"
                 id="website"
@@ -332,6 +342,73 @@ export default function Contact({
                 />
               </div>
 
+              <div className="relative">
+                <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
+                  Rodzaj wydarzenia
+                </label>
+
+                <button
+                  type="button"
+                  onClick={() => setEventDropdownOpen((prev) => !prev)}
+                  onBlur={() => {
+                    setTimeout(() => setEventDropdownOpen(false), 150);
+                  }}
+                  aria-expanded={eventDropdownOpen}
+                  className="w-full flex items-center justify-between bg-transparent border-0 border-b border-white/10 rounded-none py-3 text-base text-left focus:outline-none focus:border-amber-200/50 transition-colors"
+                >
+                  <span
+                    className={
+                      formData.rodzaj_wydarzenia
+                        ? "text-gray-300"
+                        : "text-gray-500"
+                    }
+                  >
+                    {formData.rodzaj_wydarzenia || "Wybierz rodzaj wydarzenia"}
+                  </span>
+
+                  <FiChevronDown
+                    size={17}
+                    className={`text-gray-500 transition-transform duration-300 ${
+                      eventDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {eventDropdownOpen && (
+                  <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#080808] border border-white/10 shadow-2xl py-2">
+                    {eventTypes.map((type) => {
+                      const selected = formData.rodzaj_wydarzenia === type;
+
+                      return (
+                        <button
+                          key={type}
+                          type="button"
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => {
+                            setFormData((previous) => ({
+                              ...previous,
+                              rodzaj_wydarzenia: type,
+                            }));
+                            setEventDropdownOpen(false);
+                            setError("");
+                          }}
+                          className={`w-full flex items-center justify-between px-5 py-3 text-sm text-left transition-colors ${
+                            selected
+                              ? "text-amber-200 bg-white/[0.04]"
+                              : "text-gray-400 hover:text-white hover:bg-white/[0.05]"
+                          }`}
+                        >
+                          {type}
+                          {selected && <FiCheck size={15} />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               <div>
                 <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-3 font-medium">
                   Data imprezy

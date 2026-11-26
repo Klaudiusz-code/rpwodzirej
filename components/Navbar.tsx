@@ -38,14 +38,15 @@ export default function Navbar({ settings }: { settings: any }) {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  const links = [
-    { label: "Start", anchor: "start" },
-    { label: "Realizacje", anchor: "realizacje" },
-    { label: "O mnie", anchor: "o-mnie" },
-    { label: "Oferta", anchor: "oferta" },
-    { label: "Opinie", anchor: "opinie" },
-    { label: "Wolne terminy", anchor: "/terminy" },
-  ];
+const links = [
+  { label: "Start", anchor: "start" },
+  { label: "Realizacje", anchor: "realizacje" },
+  { label: "O mnie", anchor: "o-mnie" },
+  { label: "Oferta", anchor: "oferta" },
+  { label: "Zapytaj o ofertę", anchor: "kontakt" },
+  { label: "Opinie", anchor: "opinie" },
+  { label: "Wolne terminy", anchor: "/terminy" },
+];
 
   const logoSrc = settings?.logo?.node?.sourceUrl || "/rp-wektor.png";
   const logoAlt = settings?.logo?.node?.altText || "RP.events";

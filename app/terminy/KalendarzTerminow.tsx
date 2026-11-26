@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useMemo, useState, type ReactElement } from "react";
@@ -76,11 +75,7 @@ function czyPoprawnaData(value: string): boolean {
 function dzisiejszaData(): string {
   const dzisiaj = new Date();
 
-  return iso(
-    dzisiaj.getFullYear(),
-    dzisiaj.getMonth(),
-    dzisiaj.getDate()
-  );
+  return iso(dzisiaj.getFullYear(), dzisiaj.getMonth(), dzisiaj.getDate());
 }
 
 export default function KalendarzTerminow({
@@ -108,15 +103,9 @@ export default function KalendarzTerminow({
   const [mies, setMies] = useState(startMiesiac - 1);
   const [wybrany, setWybrany] = useState("");
 
-  const zajete = useMemo(
-    () => new Set(dane?.zajete ?? []),
-    [dane]
-  );
+  const zajete = useMemo(() => new Set(dane?.zajete ?? []), [dane]);
 
-  const wstepne = useMemo(
-    () => new Set(dane?.wstepne ?? []),
-    [dane]
-  );
+  const wstepne = useMemo(() => new Set(dane?.wstepne ?? []), [dane]);
 
   useEffect(() => {
     setRok(startRok);
@@ -139,11 +128,9 @@ export default function KalendarzTerminow({
 
   const [koniecRok, koniecMiesiac] = doIso.split("-").map(Number);
 
-  const ostatniMiesiac =
-    rok === koniecRok && mies === koniecMiesiac - 1;
+  const ostatniMiesiac = rok === koniecRok && mies === koniecMiesiac - 1;
 
-  const pierwszyMiesiac =
-    rok === startRok && mies === startMiesiac - 1;
+  const pierwszyMiesiac = rok === startRok && mies === startMiesiac - 1;
 
   const nastepny = () => {
     if (ostatniMiesiac) {
@@ -198,8 +185,7 @@ export default function KalendarzTerminow({
     );
   }
 
-  const przesuniecie =
-    (new Date(rok, mies, 1).getDay() + 6) % 7;
+  const przesuniecie = (new Date(rok, mies, 1).getDay() + 6) % 7;
 
   const ileDni = new Date(rok, mies + 1, 0).getDate();
 
@@ -207,10 +193,7 @@ export default function KalendarzTerminow({
 
   for (let i = 0; i < przesuniecie; i++) {
     komorki.push(
-      <div
-        key={`empty-${i}`}
-        className={`${styles.day} ${styles.empty}`}
-      />
+      <div key={`empty-${i}`} className={`${styles.day} ${styles.empty}`} />,
     );
   }
 
@@ -257,7 +240,7 @@ export default function KalendarzTerminow({
       >
         {dzien}
         {kropka && <span className={styles.tag} />}
-      </button>
+      </button>,
     );
   }
 
@@ -271,13 +254,7 @@ export default function KalendarzTerminow({
     const opis = `${wybranyDzien} ${
       MIESIACE_DOP[wybranyMiesiac - 1]
     } ${wybranyRok} (${
-      DNI_PELNE[
-        new Date(
-          wybranyRok,
-          wybranyMiesiac - 1,
-          wybranyDzien
-        ).getDay()
-      ]
+      DNI_PELNE[new Date(wybranyRok, wybranyMiesiac - 1, wybranyDzien).getDay()]
     })`;
 
     const przycisk = (tekst: string) => (
@@ -307,21 +284,19 @@ export default function KalendarzTerminow({
         <div className={`${styles.result} ${styles.no}`}>
           <div className={styles.big}>{opis} – zajęty</div>
           <div>
-            Ten dzień jest już zarezerwowany. Sprawdź inny termin albo
-            napisz, jeśli data jest jeszcze elastyczna.
+            Ten dzień jest już zarezerwowany. Sprawdź inny termin albo napisz,
+            jeśli data jest jeszcze elastyczna.
           </div>
         </div>
       );
     } else if (wstepne.has(wybrany)) {
       wynik = (
         <div className={`${styles.result} ${styles.mid}`}>
-          <div className={styles.big}>
-            {opis} – częściowo dostępny
-          </div>
+          <div className={styles.big}>{opis} – częściowo dostępny</div>
           <div>
-            Termin jest wstępnie zarezerwowany przez inną parę, ale nie
-            jest jeszcze potwierdzony. Wyślijcie zapytanie – dam znać,
-            gdy tylko termin się zwolni.
+            Termin jest wstępnie zarezerwowany przez inną parę, ale nie jest
+            jeszcze potwierdzony. Wyślijcie zapytanie – dam znać, gdy tylko
+            termin się zwolni.
           </div>
           {przycisk("Zapytaj o ofertę")}
         </div>
@@ -331,8 +306,7 @@ export default function KalendarzTerminow({
         <div className={`${styles.result} ${styles.ok}`}>
           <div className={styles.big}>{opis} – wolny</div>
           <div>
-            Ten termin jest dostępny. Wyślijcie zapytanie, a przygotuję
-            ofertę.
+            Ten termin jest dostępny. Wyślijcie zapytanie, a przygotuję ofertę.
           </div>
           {przycisk("Zapytaj o ofertę")}
         </div>
@@ -347,7 +321,7 @@ export default function KalendarzTerminow({
       <div className={styles.divider} />
 
       <p className={styles.lead}>
-        Kliknij datę w kalendarzu albo wpisz ją poniżej.
+        Kliknij datę w kalendarzu i otrzymaj ofertę.
       </p>
 
       <div className={styles.card}>
@@ -387,9 +361,7 @@ export default function KalendarzTerminow({
 
         <div className={styles.legend}>
           <span className={styles.lFree}>Wolny</span>
-          <span className={styles.lPartial}>
-            Wstępnie zarezerwowany
-          </span>
+          <span className={styles.lPartial}>Wstępnie zarezerwowany</span>
           <span className={styles.lBusy}>Zajęty</span>
         </div>
 

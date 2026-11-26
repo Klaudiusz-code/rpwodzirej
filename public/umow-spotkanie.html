@@ -53,6 +53,9 @@
   .sukces .ikona{font-size:42px}
   .stopka{color:var(--szary);font-size:13px;text-align:center;margin-top:22px}
   .stopka a{color:var(--tekst)}
+  .zgoda{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;margin-top:16px;color:var(--szary)}
+  .zgoda input{width:20px;height:20px;flex:0 0 20px;margin:2px 0 0;padding:0;accent-color:var(--zloto)}
+  .zgoda a{color:var(--tekst)}
   .hp{position:absolute;left:-5000px;height:0;overflow:hidden}
 </style>
 </head>
@@ -111,6 +114,8 @@
 
       <label for="uwagi">Uwagi (opcjonalnie)</label>
       <textarea id="uwagi" rows="2" maxlength="500"></textarea>
+
+      <label class="zgoda"><input type="checkbox" id="zgoda"> <span>Zapoznałem/am się z <a href="https://rpevents.pl/polityka-prywatnosci.html" target="_blank" rel="noopener">Polityką prywatności</a> i wyrażam zgodę na przetwarzanie moich danych w celu umówienia spotkania i przygotowania oferty.</span></label>
 
       <div class="hp"><input type="text" id="www" tabindex="-1" autocomplete="off"></div>
 
@@ -253,6 +258,7 @@
       forma: STAN.forma,
       uwagi: $('uwagi').value.trim(),
       www: $('www').value,
+      zgoda: $('zgoda').checked,
       slotDzien: STAN.dzien,
       slotGodzina: STAN.godzina
     };
@@ -264,6 +270,7 @@
     if (d.imie.length < 3) return 'Podaj imię i nazwisko.';
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) return 'Podaj poprawny e-mail.';
     if (d.telefon.replace(/\D/g, '').length < 9) return 'Podaj numer telefonu.';
+    if (!d.zgoda) return 'Zaznacz zgodę na przetwarzanie danych (Polityka prywatności).';
     return '';
   }
 

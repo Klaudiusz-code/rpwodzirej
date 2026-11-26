@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -68,6 +67,48 @@ export default function Footer({ settings }: { settings: any }) {
             <p className="text-sm leading-relaxed text-gray-400">
               {footerDesc}
             </p>
+
+            <div className="mt-6 space-y-2 text-xs leading-relaxed text-gray-500">
+              <p className="font-medium text-gray-400">
+                RP Events Robert Pierz
+              </p>
+
+              <p>
+                ul.{" "}
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Wyciąska+87,+31-998+Kraków"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-white"
+                >
+                  Wyciąska 87, 31-998 Kraków
+                </a>
+              </p>
+
+              <p>NIP: 7382026998</p>
+
+              <p>
+                <a
+                  href="mailto:rp.events.robert.pierz@gmail.com"
+                  className="transition-colors hover:text-white"
+                >
+                  rp.events.robert.pierz@gmail.com
+                </a>
+              </p>
+
+              <p>
+                <a
+                  href="tel:+48507177939"
+                  className="transition-colors hover:text-white"
+                >
+                  +48 507 177 939
+                </a>
+              </p>
+
+              <p className="pt-2 text-gray-400">
+                Płatności online obsługuje ING Pay.
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:grid-cols-3 sm:gap-x-16">
